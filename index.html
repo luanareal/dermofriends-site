@@ -1143,7 +1143,7 @@ body.df-admin-mode .df-partner-drag-handle,body.df-admin-mode .df-partner-delete
 
   <div class="shell" id="topo" data-cid="b4s8S0">
     <header class="topbar" data-cid="mXS9a9">
-      <div class="brand" data-cid="kWNykZ"><img src="imagens/logo_dermofriends.png" alt="Dermo Friends" data-cid="A0oPB-"></div>
+      <div class="brand" data-cid="kWNykZ"><img src="imagens/logo_dermofriends.png" data-df-public-src="imagens/logo_dermofriends.png" alt="Dermo Friends" data-cid="A0oPB-"></div>
       <div class="tag" data-cid="5oSdnl">Consulta digital para equipes de farmácia</div>
     </header>
 
@@ -1170,22 +1170,22 @@ body.df-admin-mode .df-partner-drag-handle,body.df-admin-mode .df-partner-delete
         <div class="partners-grid" id="dfPartnersGrid">
         <!-- Troque # pelo link externo de cada marca quando desejar. -->
         <a class="partner-card" href="#" target="_blank" rel="noopener noreferrer" aria-label="Abrir site da Eucerin">
-          <img src="imagens/eucerin.png" alt="Eucerin">
+          <img src="imagens/eucerin.png" data-df-public-src="imagens/eucerin.png" alt="Eucerin">
         </a>
         <a class="partner-card" href="#" target="_blank" rel="noopener noreferrer" aria-label="Abrir site da Galderma">
-          <img src="imagens/galderma.png" alt="Galderma">
+          <img src="imagens/galderma.png" data-df-public-src="imagens/galderma.png" alt="Galderma">
         </a>
         <a class="partner-card" href="#" target="_blank" rel="noopener noreferrer" aria-label="Abrir site da ISDIN">
-          <img src="imagens/isdin.png" alt="ISDIN">
+          <img src="imagens/isdin.png" data-df-public-src="imagens/isdin.png" alt="ISDIN">
         </a>
         <a class="partner-card neutrogena" href="#" target="_blank" rel="noopener noreferrer" aria-label="Abrir site da Neutrogena">
-          <img src="imagens/neutrogena.png" alt="Neutrogena">
+          <img src="imagens/neutrogena.png" data-df-public-src="imagens/neutrogena.png" alt="Neutrogena">
         </a>
         <a class="partner-card" href="#" target="_blank" rel="noopener noreferrer" aria-label="Abrir site da Pierre Fabre">
-          <img src="imagens/pierre.png" alt="Pierre Fabre">
+          <img src="imagens/pierre.png" data-df-public-src="imagens/pierre.png" alt="Pierre Fabre">
         </a>
         <a class="partner-card" href="https://farmaciasassociadascombr.sharepoint.com/:f:/s/ComercialAssociadas/IgAT6YvyOPqRRp6omdR4WhW0AdW8Jwfo-zbcjplJB5hH0B0?e=5qd02H" target="_blank" rel="noopener noreferrer" aria-label="Abrir site da Principia">
-          <img src="imagens/principia.png" alt="Principia">
+          <img src="imagens/principia.png" data-df-public-src="imagens/principia.png" alt="Principia">
         </a>
         </div>
         <button class="df-partner-nav next" id="dfPartnerNext" type="button" aria-label="Próximos parceiros">›</button>
@@ -1388,7 +1388,7 @@ body.df-admin-mode .df-partner-drag-handle,body.df-admin-mode .df-partner-delete
   const DB_NAME='dermofriends_admin_db', DB_VERSION=1, STORE_CONTENT='content', STORE_IMAGES='images';
   // V1.21: controla compatibilidade do conteúdo persistido sem apagar a biblioteca de imagens.
   // Aumente PERSISTENCE_SCHEMA somente quando uma nova versão alterar a estrutura/base do site.
-  const SITE_VERSION='1.22', PERSISTENCE_SCHEMA=3;
+  const SITE_VERSION='1.24', PERSISTENCE_SCHEMA=4;
   const compatibleRecord=rec=>!!rec&&rec.persistenceSchema===PERSISTENCE_SCHEMA;
   const state={db:null,dirty:false,currentImage:null,pendingImage:null,librarySelectMode:false,baseSectionIds:[],draggedSection:null,selectedSections:new Set(),currentPartner:null,partnerPendingImage:null,partnerLibraryMode:false,banners:[],bannerIndex:0,bannerLibraryMode:false,partnerTimer:null,draggedPartner:null};
   const ADMIN_SESSION_KEY='df-admin-authenticated';
@@ -1451,7 +1451,8 @@ body.df-admin-mode .df-partner-drag-handle,body.df-admin-mode .df-partner-delete
   function handleSectionDragOver(e){if(!adminMode()||!state.draggedSection||state.draggedSection===e.currentTarget)return;e.preventDefault();const rect=e.currentTarget.getBoundingClientRect();const before=e.clientY<rect.top+rect.height/2;clearDropMarkers();e.currentTarget.classList.add(before?'df-drop-before':'df-drop-after');if(e.dataTransfer)e.dataTransfer.dropEffect='move';}
   function handleSectionDrop(e){if(!adminMode()||!state.draggedSection||state.draggedSection===e.currentTarget)return;e.preventDefault();const target=e.currentTarget,dragged=state.draggedSection;const rect=target.getBoundingClientRect();const before=e.clientY<rect.top+rect.height/2;target.parentNode.insertBefore(dragged,before?target:target.nextSibling);clearDropMarkers();syncToc();observeSectionTitles();markDirty();}
   function finishSectionDrag(){if(state.draggedSection)state.draggedSection.classList.remove('df-dragging');state.draggedSection=null;clearDropMarkers();}
-  function registerImages(){$$('img').filter(img=>!img.closest('.df-admin-modal,.dermo-intro,.partner-card')).forEach(img=>{stableId(img,'img');const host=img.parentElement;if(!host||host.classList.contains('df-image-edit-host'))return;host.classList.add('df-image-edit-host');const b=document.createElement('button');b.className='df-edit-control';b.type='button';b.textContent='✎ Imagem';b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();openImageEditor(img);});host.appendChild(b);});}
+  function isOfficialPublicImage(img){return !!(img&&img.dataset&&img.dataset.dfPublicSrc);}
+  function registerImages(){$$('img').filter(img=>!img.closest('.df-admin-modal,.dermo-intro,.partner-card')&&!isOfficialPublicImage(img)).forEach(img=>{stableId(img,'img');const host=img.parentElement;if(!host||host.classList.contains('df-image-edit-host'))return;host.classList.add('df-image-edit-host');const b=document.createElement('button');b.className='df-edit-control';b.type='button';b.textContent='✎ Imagem';b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();openImageEditor(img);});host.appendChild(b);});}
   function partnerKey(card,index){
     if(card.dataset.dfPartnerKey)return card.dataset.dfPartnerKey;
     card.dataset.dfPartnerKey='df-partner-card-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,9);
@@ -1459,13 +1460,23 @@ body.df-admin-mode .df-partner-drag-handle,body.df-admin-mode .df-partner-delete
   }
   function partnerGrid(){return $('#dfPartnersGrid')||$('.partners-grid');}
   function partnerCards(){const g=partnerGrid();return g?Array.from(g.querySelectorAll(':scope > .partner-card')):[];}
+  const OFFICIAL_PARTNER_IMAGES={
+    'eucerin':'imagens/eucerin.png',
+    'galderma':'imagens/galderma.png',
+    'isdin':'imagens/isdin.png',
+    'neutrogena':'imagens/neutrogena.png',
+    'pierre fabre':'imagens/pierre.png',
+    'pierre':'imagens/pierre.png',
+    'principia':'imagens/principia.png'
+  };
+  function officialPartnerSrc(value){return OFFICIAL_PARTNER_IMAGES[String(value||'').trim().toLowerCase()]||'';}
   function makePartnerCard(data={}){
     const card=document.createElement('a');card.className='partner-card';card.href=data.href||'#';
     card.dataset.dfPartnerKey=data.id||('df-partner-card-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,9));
     card.dataset.dfPartnerName=data.name||'';card.dataset.dfPartnerScale=String(data.scale||100);card.dataset.dfSourceHref=data.sourceHref||'#';
     if(data.target)card.target=data.target;if(data.rel)card.rel=data.rel;card.setAttribute('aria-label',data.ariaLabel||'Abrir site do parceiro');
-    const img=document.createElement('img');img.alt=data.alt||data.name||'Parceiro';img.src=data.src||'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300"><rect width="100%" height="100%" fill="white"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="34" fill="#8b8379">Nova marca</text></svg>');
-    if(data.imageId)img.dataset.dfImageId=data.imageId;img.style.transform='scale('+((data.scale||100)/100)+')';card.appendChild(img);return card;
+    const img=document.createElement('img');img.alt=data.alt||data.name||'Parceiro';const officialSrc=officialPartnerSrc(data.name||data.alt);img.src=officialSrc||data.src||'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300"><rect width="100%" height="100%" fill="white"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="34" fill="#8b8379">Nova marca</text></svg>');
+    if(officialSrc){img.dataset.dfPublicSrc=officialSrc;delete img.dataset.dfImageId;}else if(data.imageId)img.dataset.dfImageId=data.imageId;img.style.transform='scale('+((data.scale||100)/100)+')';card.appendChild(img);return card;
   }
   function registerPartners(){partnerCards().forEach((card,index)=>{partnerKey(card,index);if(!card.dataset.dfSourceHref)card.dataset.dfSourceHref=card.getAttribute('href')||'#';const img=card.querySelector('img');if(!img)return;if(!card.querySelector('.df-partner-edit')){const b=document.createElement('button');b.type='button';b.className='df-partner-edit';b.textContent='✎ Editar parceiro';b.setAttribute('aria-label','Editar parceiro');b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();openPartnerEditor(card);});card.appendChild(b);}if(!card.querySelector('.df-partner-drag-handle')){const h=document.createElement('button');h.type='button';h.className='df-partner-drag-handle';h.textContent='⠿';h.title='Arraste para ordenar';h.draggable=true;h.addEventListener('dragstart',e=>{if(!adminMode()){e.preventDefault();return;}state.draggedPartner=card;card.classList.add('df-partner-dragging');e.dataTransfer.effectAllowed='move';});h.addEventListener('dragend',()=>{card.classList.remove('df-partner-dragging');state.draggedPartner=null;markDirty();setupPartnerCarousel();});card.appendChild(h);card.addEventListener('dragover',e=>{if(!adminMode()||!state.draggedPartner||state.draggedPartner===card)return;e.preventDefault();const r=card.getBoundingClientRect();card.parentNode.insertBefore(state.draggedPartner,e.clientX<r.left+r.width/2?card:card.nextSibling);});}if(!card.querySelector('.df-partner-delete')){const d=document.createElement('button');d.type='button';d.className='df-partner-delete';d.textContent='×';d.title='Excluir parceiro';d.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();if(confirm('Excluir este parceiro?')){card.remove();markDirty();setupPartnerCarousel();}});card.appendChild(d);}});setupPartnerCarousel();}
   function normalizePartnerUrl(value){const v=(value||'').trim();if(!v)return '#';if(/^https?:\/\//i.test(v))return v;return 'https://'+v.replace(/^\/+/, '');}
@@ -1473,7 +1484,7 @@ body.df-admin-mode .df-partner-drag-handle,body.df-admin-mode .df-partner-delete
   async function applyPartner(){const card=state.currentPartner;if(!card)return;const img=card.querySelector('img');if(!img)return;const file=$('#dfPartnerUpload').files[0];if(file){const id='img-'+Date.now()+'-'+Math.random().toString(36).slice(2,9);await put(STORE_IMAGES,{id,name:file.name,type:file.type,size:file.size,createdAt:Date.now(),blob:file});img.src=await dataUrlFromBlob(file);img.dataset.dfImageId=id;}else if(state.partnerPendingImage){img.src=await dataUrlFromBlob(state.partnerPendingImage.blob);img.dataset.dfImageId=state.partnerPendingImage.imageId;}const name=$('#dfPartnerName').value.trim();const alt=$('#dfPartnerAlt').value.trim()||name;const href=normalizePartnerUrl($('#dfPartnerLink').value);const scale=Math.min(150,Math.max(60,parseInt($('#dfPartnerScale').value,10)||100));card.dataset.dfPartnerName=name;card.dataset.dfPartnerScale=String(scale);card.setAttribute('title',name);img.alt=alt;img.style.transform='scale('+(scale/100)+')';card.setAttribute('href',href);card.setAttribute('aria-label',name?'Abrir site da '+name:'Abrir site do parceiro');if($('#dfPartnerNewTab').checked){card.setAttribute('target','_blank');card.setAttribute('rel','noopener noreferrer');}else{card.removeAttribute('target');card.removeAttribute('rel');}markDirty();closeModal('dfPartnerEditModal');state.partnerPendingImage=null;await renderLibrary();}
   async function partnerData(card){const img=card.querySelector('img');return{id:card.dataset.dfPartnerKey,name:card.dataset.dfPartnerName||card.getAttribute('title')||'',href:card.getAttribute('href')||'#',sourceHref:card.dataset.dfSourceHref||'#',target:card.getAttribute('target')||'',rel:card.getAttribute('rel')||'',ariaLabel:card.getAttribute('aria-label')||'',scale:parseInt(card.dataset.dfPartnerScale||'100',10)||100,alt:img?.alt||'',imageId:img?.dataset.dfImageId||null,src:img?.dataset.dfImageId?null:(img?.getAttribute('src')||'')};}
   async function savePartners(now){const items=[];for(const card of partnerCards())items.push(await partnerData(card));await put(STORE_CONTENT,{id:'df-partners-v2',type:'partners-v2',items,persistenceSchema:PERSISTENCE_SCHEMA,siteVersion:SITE_VERSION,updatedAt:now});}
-  async function restorePartners(){const rec=await get(STORE_CONTENT,'df-partners-v2');if(compatibleRecord(rec)&&rec.type==='partners-v2'&&Array.isArray(rec.items)){const g=partnerGrid();g.innerHTML='';for(const data of rec.items){if(data.imageId){const im=await get(STORE_IMAGES,data.imageId);if(im&&im.blob)data.src=await dataUrlFromBlob(im.blob);}g.appendChild(makePartnerCard(data));}registerPartners();return;}/* migração: mantém os cards atuais, mas cria IDs neutros permanentes */partnerCards().forEach((card,i)=>{card.dataset.dfPartnerKey='df-partner-card-'+String(i+1).padStart(3,'0');});registerPartners();}
+  async function restorePartners(){const rec=await get(STORE_CONTENT,'df-partners-v2');if(compatibleRecord(rec)&&rec.type==='partners-v2'&&Array.isArray(rec.items)){const g=partnerGrid();g.innerHTML='';for(const data of rec.items){const officialSrc=officialPartnerSrc(data.name||data.alt);if(officialSrc){data.src=officialSrc;data.imageId=null;}else if(data.imageId){const im=await get(STORE_IMAGES,data.imageId);if(im&&im.blob)data.src=await dataUrlFromBlob(im.blob);}g.appendChild(makePartnerCard(data));}registerPartners();return;}/* migração: mantém os cards atuais, mas cria IDs neutros permanentes */partnerCards().forEach((card,i)=>{card.dataset.dfPartnerKey='df-partner-card-'+String(i+1).padStart(3,'0');});registerPartners();}
   function partnerVisibleCount(){return window.innerWidth<=560?1:(window.innerWidth<=900?2:5);}
   function partnerStepSize(){const g=partnerGrid(),first=partnerCards()[0];if(!g||!first)return 0;const gap=parseFloat(getComputedStyle(g).gap)||18;return first.getBoundingClientRect().width+gap;}
   function rotatePartnerForward(){const g=partnerGrid();if(!g||adminMode()||g.dataset.dfAnimating==='1')return;const cards=partnerCards();if(cards.length<=partnerVisibleCount())return;const first=cards[0],step=partnerStepSize();if(!first||!step)return;g.dataset.dfAnimating='1';g.scrollTo({left:0,behavior:'auto'});requestAnimationFrame(()=>{g.scrollTo({left:step,behavior:'smooth'});setTimeout(()=>{g.appendChild(first);g.scrollTo({left:0,behavior:'auto'});g.dataset.dfAnimating='0';},650);});}
@@ -1502,8 +1513,8 @@ body.df-admin-mode .df-partner-drag-handle,body.df-admin-mode .df-partner-delete
   async function restoreSectionLayout(){const rec=await get(STORE_CONTENT,'df-section-layout');if(!compatibleRecord(rec)||rec.type!=='section-layout')return;const main=$('main');if(!main)return;const deleted=new Set(Array.isArray(rec.deleted)?rec.deleted:[]);deleted.forEach(id=>{const el=document.getElementById(id);if(el&&el.matches('main > section.section'))el.remove();});const order=Array.isArray(rec.order)?rec.order:[];order.forEach(id=>{const el=document.getElementById(id);if(el&&el.parentElement===main)main.appendChild(el);});}
   function setAdmin(on){document.body.classList.toggle('df-admin-mode',on);$$('[data-df-editable="text"]').forEach(el=>el.setAttribute('contenteditable',on?'true':'false'));syncToc();if(on){history.replaceState(null,'',location.pathname+location.search+'#admin');status('Modo de edição');}else{clearSectionSelection();finishSectionDrag();history.replaceState(null,'',location.pathname+location.search+location.hash.replace('#admin',''));status('Pronto');}setupPartnerCarousel();}
   function markDirty(){state.dirty=true;status('Alterações não salvas');}
-  async function saveAll(){if(!state.db)return;status('Salvando…');syncToc();const now=Date.now();for(const el of $$('[data-df-editable="text"]')){await put(STORE_CONTENT,{id:el.dataset.dfKey,type:'text',html:el.innerHTML,persistenceSchema:PERSISTENCE_SCHEMA,siteVersion:SITE_VERSION,updatedAt:now});}for(const img of $$('img[data-df-key]').filter(img=>!img.closest('.partner-card'))){await put(STORE_CONTENT,{id:img.dataset.dfKey,type:'image-ref',imageId:img.dataset.dfImageId||null,src:img.dataset.dfImageId?null:img.getAttribute('src'),alt:img.getAttribute('alt')||'',persistenceSchema:PERSISTENCE_SCHEMA,siteVersion:SITE_VERSION,updatedAt:now});}await savePartners(now);await saveGeneratedSections();await saveSectionLayout();state.dirty=false;status('Salvo');setTimeout(()=>status('Pronto'),1200);}
-  async function restoreAll(){if(!state.db)return;for(const el of $$('[data-df-editable="text"]')){const rec=await get(STORE_CONTENT,el.dataset.dfKey);if(compatibleRecord(rec)&&rec.type==='text')el.innerHTML=rec.html;}for(const img of $$('img[data-df-key]').filter(img=>!img.closest('.partner-card'))){const rec=await get(STORE_CONTENT,img.dataset.dfKey);if(!compatibleRecord(rec))continue;if(rec.alt!=null)img.alt=rec.alt;if(rec.imageId){const im=await get(STORE_IMAGES,rec.imageId);if(im&&im.blob){img.src=await dataUrlFromBlob(im.blob);img.dataset.dfImageId=rec.imageId;}}else if(rec.src){img.src=rec.src;}}
+  async function saveAll(){if(!state.db)return;status('Salvando…');syncToc();const now=Date.now();for(const el of $$('[data-df-editable="text"]')){await put(STORE_CONTENT,{id:el.dataset.dfKey,type:'text',html:el.innerHTML,persistenceSchema:PERSISTENCE_SCHEMA,siteVersion:SITE_VERSION,updatedAt:now});}for(const img of $$('img[data-df-key]').filter(img=>!img.closest('.partner-card')&&!isOfficialPublicImage(img))){await put(STORE_CONTENT,{id:img.dataset.dfKey,type:'image-ref',imageId:img.dataset.dfImageId||null,src:img.dataset.dfImageId?null:img.getAttribute('src'),alt:img.getAttribute('alt')||'',persistenceSchema:PERSISTENCE_SCHEMA,siteVersion:SITE_VERSION,updatedAt:now});}await savePartners(now);await saveGeneratedSections();await saveSectionLayout();state.dirty=false;status('Salvo');setTimeout(()=>status('Pronto'),1200);}
+  async function restoreAll(){if(!state.db)return;for(const el of $$('[data-df-editable="text"]')){const rec=await get(STORE_CONTENT,el.dataset.dfKey);if(compatibleRecord(rec)&&rec.type==='text')el.innerHTML=rec.html;}for(const img of $$('img[data-df-key]').filter(img=>!img.closest('.partner-card')&&!isOfficialPublicImage(img))){const rec=await get(STORE_CONTENT,img.dataset.dfKey);if(!compatibleRecord(rec))continue;if(rec.alt!=null)img.alt=rec.alt;if(rec.imageId){const im=await get(STORE_IMAGES,rec.imageId);if(im&&im.blob){img.src=await dataUrlFromBlob(im.blob);img.dataset.dfImageId=rec.imageId;}}else if(rec.src){img.src=rec.src;}}
     await restorePartners();
   }
   async function addFiles(files){for(const file of files){if(!file.type.startsWith('image/'))continue;const id='img-'+Date.now()+'-'+Math.random().toString(36).slice(2,9);await put(STORE_IMAGES,{id,name:file.name,type:file.type,size:file.size,createdAt:Date.now(),blob:file});}await renderLibrary();}
