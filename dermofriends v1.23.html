@@ -1,0 +1,1531 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manual Digital de Boas Práticas em Dermocosméticos</title>
+  <style>
+    :root {
+      --green: #9cda37;
+      --green-soft: #eef8d8;
+      --orange: #f37d19;
+      --orange-soft: #fff2df;
+      --peach: #f4b56f;
+      --sand: #f7f2e9;
+      --ink: #30302f;
+      --muted: #6e6a63;
+      --line: #e2d8c6;
+      --white: #fffdf9;
+      --red: #c95b44;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--sand);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+    a { color: #7a5a27; }
+    .shell { max-width: 1180px; margin: 0 auto; padding: 24px; }
+    .topbar {
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      padding: 14px 0 18px; border-bottom: 1px solid var(--line);
+    }
+    .brand { display: flex; align-items: center; }
+    .brand img { width: 176px; height: auto; display: block; }
+    .tag { font-size: 12px; color: var(--muted); }
+    .hero {
+      margin: 28px 0 24px; padding: 36px; border: 1px solid var(--line); border-radius: 22px;
+      background: linear-gradient(135deg, #fffdf9 0%, #fffaf3 60%, #f1f8df 100%);
+      display: grid; grid-template-columns: 1.08fr .92fr; gap: 28px; align-items: stretch; position: relative; overflow: hidden;
+    }
+    .hero::before, .hero::after { display: none; }
+    .eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: .16em; color: var(--muted); }
+    h1 { font-size: clamp(34px, 5vw, 62px); line-height: 1.03; margin: 10px 0 14px; letter-spacing: -.04em; }
+    h2 { font-size: 28px; line-height: 1.1; margin: 0 0 12px; letter-spacing: -.025em; }
+    h3 { font-size: 18px; line-height: 1.2; margin: 0 0 8px; }
+    h4 { font-size: 14px; margin: 0 0 6px; }
+    p { margin: 0 0 12px; }
+    .lead { font-size: 18px; color: #4b4944; max-width: 720px; }
+    .hero-visual { min-height: 290px; display: flex; align-items: flex-end; justify-content: flex-end; overflow: visible; border-radius: 18px; border: 0; background: transparent; position: relative; }
+    .hero-person { width: 100%; max-width: 520px; min-height: 290px; height: 100%; display: block; object-fit: contain; object-position: center bottom; margin-left: auto; opacity: .98; -webkit-mask-image: radial-gradient(ellipse at 58% 52%, #000 58%, transparent 97%); mask-image: radial-gradient(ellipse at 58% 52%, #000 58%, transparent 97%); }
+    .orb { width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff6d8 0 17%, var(--peach) 18% 37%, var(--orange) 38% 65%, var(--green) 66%); opacity: .93; }
+    .palette { display: flex; height: 12px; border-radius: 99px; overflow: hidden; margin-top: 22px; }
+    .palette i { flex: 1; }
+    .c1 { background: var(--green); } .c2 { background: var(--orange); } .c3 { background: var(--peach); } .c4 { background: #f3c783; } .c5 { background: #f5cf64; } .c6 { background: #a6dd46; }
+    .hero-logos {
+      grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-evenly; gap: 48px;
+      padding: 22px 34px 4px; border-top: 1px solid rgba(226, 216, 198, .65);
+    }
+    .hero-logos img { max-width: 210px; max-height: 72px; width: auto; height: auto; object-fit: contain; opacity: .72; }
+    .layout { display: grid; grid-template-columns: 250px minmax(0,1fr); gap: 28px; align-items: start; }
+    .toc {
+      position: sticky; top: 18px; padding: 18px; background: rgba(255,253,249,.9);
+      border: 1px solid var(--line); border-radius: 16px;
+    }
+    .toc strong { display: block; margin-bottom: 10px; }
+    .toc a { display: block; text-decoration: none; font-size: 13px; padding: 7px 0; border-bottom: 1px dotted var(--line); }
+    .toc a:last-child { border-bottom: 0; }
+    main { min-width: 0; }
+    section { scroll-margin-top: 22px; margin-bottom: 24px; }
+    .section {
+      background: var(--white); border: 1px solid var(--line); border-radius: 18px; padding: 26px;
+    }
+    .section + .section { margin-top: 20px; }
+    .section-head { display: flex; justify-content: space-between; gap: 18px; align-items: start; margin-bottom: 16px; }
+    .num { font-size: 12px; color: #7d6d53; text-transform: uppercase; letter-spacing: .14em; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; }
+    .grid-5 { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 10px; }
+    .box { border: 1px solid var(--line); border-radius: 14px; padding: 16px; background: #fff; }
+    .soft-green { background: var(--green-soft); border-color: #d3e7ae; }
+    .soft-orange { background: var(--orange-soft); border-color: #f5d5a7; }
+    .soft-red { background: #fff1ed; border-color: #efc1b5; }
+    .soft-sand { background: #faf6ef; }
+    .pill { display: inline-block; padding: 5px 9px; border-radius: 99px; background: var(--green-soft); font-size: 12px; color: #4d6627; margin: 0 4px 6px 0; }
+    .step { border-top: 4px solid var(--orange); }
+    .step:nth-child(2) { border-top-color: var(--peach); }
+    .step:nth-child(3) { border-top-color: var(--green); }
+    .step:nth-child(4) { border-top-color: #f5cf64; }
+    .step:nth-child(5) { border-top-color: var(--red); }
+    .step-number { font-size: 28px; font-weight: 800; color: var(--orange); }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0 8px; font-size: 14px; }
+    th, td { border: 1px solid var(--line); padding: 10px 11px; text-align: left; vertical-align: top; }
+    th { background: #f6efe3; }
+    ul, ol { margin: 8px 0 14px; padding-left: 20px; }
+    li { margin-bottom: 5px; }
+    .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .do-dont h3 { display: flex; gap: 8px; align-items: center; }
+    .checklist { list-style: none; padding: 0; margin: 0; }
+    .checklist li { padding: 9px 0 9px 28px; border-bottom: 1px dotted var(--line); position: relative; }
+    .checklist li::before { content: "□"; position: absolute; left: 0; top: 5px; font-size: 22px; color: var(--orange); }
+    .quote { border-left: 4px solid var(--orange); padding: 10px 14px; background: #fff8ea; border-radius: 0 10px 10px 0; font-style: italic; }
+    figure { margin: 14px 0 16px; }
+    figure img { width: 100%; max-height: 420px; object-fit: contain; background: #f7f7f6; border: 1px solid var(--line); border-radius: 14px; }
+    figcaption { font-size: 12px; color: var(--muted); margin-top: 6px; }
+    .footer { margin: 26px 0 4px; padding: 18px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+    .back { float: right; font-size: 12px; }
+    .mini-note { font-size: 12px; color: var(--muted); }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .toc { position: static; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 150px; }
+      .orb { width: 150px; height: 150px; }
+      .grid-4, .grid-5 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 620px) {
+      .shell { padding: 14px; }
+      .hero, .section { padding: 20px; border-radius: 15px; }
+      .grid-2, .grid-3, .do-dont { grid-template-columns: 1fr; }
+      .grid-4, .grid-5 { grid-template-columns: 1fr 1fr; }
+      h1 { font-size: 36px; }
+      h2 { font-size: 24px; }
+    }
+    @media print {
+      body { background: white; }
+      .shell { max-width: none; padding: 0; }
+      .toc { position: static; }
+      .layout { grid-template-columns: 1fr; }
+      .section { break-inside: avoid; }
+      .back { display: none; }
+    }
+  
+    /* Inclusão cirúrgica: parceiros no banner + abertura Dermo Friends */
+    .hero-logos {
+      grid-column: 1 / -1; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+      align-items: center; gap: 24px; padding: 22px 28px 4px; margin-top: 4px;
+      border-top: 1px solid rgba(226, 216, 198, .65);
+    }
+    .hero-logos .logo-slot { min-width: 0; display: flex; align-items: center; justify-content: center; height: 78px; }
+    .hero-logos img { display: block; max-width: 100%; max-height: 66px; width: auto; height: auto; object-fit: contain; opacity: .72; }
+    .hero-logos img.logo-neutrogena { max-height: 58px; }
+    .hero-logos img.logo-pierre { max-height: 62px; }
+
+    .dermo-intro {position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:28px;background:rgba(33,29,24,.58);backdrop-filter:blur(5px);transition:opacity .35s ease,visibility .35s ease}.dermo-intro.is-hidden{opacity:0;visibility:hidden;pointer-events:none}.df-banner-shell{position:relative;width:min(980px,92vw);max-height:86vh;display:flex;align-items:center;justify-content:center}.df-banner-stage{width:100%;display:flex;align-items:center;justify-content:center}.df-banner-link{display:block;line-height:0;max-width:100%}.df-banner-image{display:block;max-width:100%;max-height:82vh;width:auto;height:auto;object-fit:contain;border-radius:20px;box-shadow:0 22px 70px rgba(0,0,0,.25);background:#fff}.df-banner-close,.df-banner-nav{position:absolute;border:0;cursor:pointer;z-index:2;display:grid;place-items:center;background:rgba(255,255,255,.94);color:#30302f;box-shadow:0 5px 20px rgba(0,0,0,.18)}.df-banner-close{right:-14px;top:-14px;width:42px;height:42px;border-radius:50%;font-size:25px}.df-banner-nav{top:50%;transform:translateY(-50%);width:44px;height:58px;border-radius:14px;font-size:30px}.df-banner-prev{left:-58px}.df-banner-next{right:-58px}.df-banner-dots{position:absolute;left:50%;bottom:-24px;transform:translateX(-50%);display:flex;gap:7px}.df-banner-dot{width:9px;height:9px;border-radius:50%;border:0;padding:0;cursor:pointer;background:rgba(255,255,255,.55)}.df-banner-dot.is-active{background:#fff;transform:scale(1.25)}.df-banner-empty{background:#fff;border-radius:18px;padding:28px;color:#6d655b;box-shadow:0 20px 60px rgba(0,0,0,.18)}.df-banner-admin-list{display:grid;gap:12px;margin-top:14px}.df-banner-admin-item{display:grid;grid-template-columns:120px 1fr auto;gap:14px;align-items:center;padding:12px;border:1px solid #e4d8c5;border-radius:14px;background:#fffaf3}.df-banner-admin-item img{width:120px;height:74px;object-fit:cover;border-radius:9px;background:#eee}.df-banner-admin-fields{display:grid;gap:8px}.df-banner-admin-fields input[type=text],.df-banner-admin-fields input[type=url]{width:100%;padding:9px 10px;border:1px solid #d8cbb7;border-radius:9px}.df-banner-admin-actions{display:flex;flex-direction:column;gap:6px}.df-banner-addbox{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;padding:14px;border:1px dashed #d5c5ac;border-radius:14px;background:#fffaf3}.df-banner-addbox input[type=file]{width:100%}@media(max-width:760px){.df-banner-nav{width:38px;height:48px}.df-banner-prev{left:6px}.df-banner-next{right:6px}.df-banner-close{right:4px;top:4px}.df-banner-admin-item{grid-template-columns:82px 1fr}.df-banner-admin-item img{width:82px;height:60px}.df-banner-admin-actions{grid-column:1/-1;flex-direction:row;flex-wrap:wrap}}
+    @media (max-width: 900px) { .hero-logos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 620px) {
+      .hero-logos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding: 18px 8px 2px; }
+      .hero-logos .logo-slot { height: 64px; } .hero-logos img { max-height: 52px; }
+    }
+
+  
+
+    /* Bloco independente de parceiros */
+    .partners {
+      margin: 0 0 24px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--white);
+    }
+    .partners-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 28px;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    .partners-kicker {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      color: var(--muted);
+    }
+    .partners h2 { margin: 0; font-size: 20px; letter-spacing: -.015em; }
+    .partners-copy {
+      max-width: 430px;
+      margin: 2px 0 0;
+      text-align: right;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .partners-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .partner-card {
+      min-width: 0;
+      min-height: 92px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      text-decoration: none;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+    .partner-card img {
+      display: block;
+      width: 88%;
+      height: 62px;
+      max-width: 88%;
+      max-height: 62px;
+      object-fit: contain;
+      object-position: center;
+      border-radius: 10px;
+      overflow: hidden;
+      transform-origin: center center;
+      transition: transform .18s ease;
+    }
+    .partner-card.neutrogena {
+      background: #fff;
+    }
+    .partner-card.neutrogena img { max-height: 62px; }
+    .partner-card:focus-visible {
+      outline: 3px solid rgba(243,125,25,.28);
+      outline-offset: 3px;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .partner-card:hover {
+        transform: translateY(-2px);
+        border-color: #d5c6ae;
+        box-shadow: 0 8px 20px rgba(48,48,47,.07);
+      }
+    }
+    @media (max-width: 900px) {
+      .partners-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 620px) {
+      .partners { padding: 20px; }
+      .partners-head { display: block; }
+      .partners-copy { max-width: none; margin-top: 10px; text-align: left; }
+      .partners-grid { grid-template-columns: 1fr 1fr; }
+      .partner-card { min-height: 82px; }
+    }
+
+    /* V1.8 — Sidebar principal no estilo painel */
+    :root {
+      --df-sidebar-width: 258px;
+    }
+
+    @media (min-width: 1001px) {
+      body {
+        padding-left: var(--df-sidebar-width);
+      }
+
+      .df-site-sidebar {
+        position: fixed;
+        inset: 0 auto 0 0;
+        width: var(--df-sidebar-width);
+        z-index: 300;
+        display: flex;
+        flex-direction: column;
+        background: #fffdf9;
+        border-right: 1px solid var(--line);
+        box-shadow: 8px 0 28px rgba(48,48,47,.035);
+        padding: 30px 20px 18px;
+        overflow: hidden;
+      }
+
+      .df-sidebar-brand {
+        flex: 0 0 auto;
+        padding: 0 10px 22px;
+        text-align: center;
+      }
+
+      .df-sidebar-logo {
+        display: block;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 27px;
+        line-height: .92;
+        letter-spacing: .045em;
+        color: #6e9d31;
+      }
+
+      .df-sidebar-logo small {
+        display: block;
+        margin-top: 8px;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .35em;
+        color: var(--orange);
+      }
+
+      .df-sidebar-logo-img {
+        display: block;
+        width: 190px;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
+      }
+
+      .df-sidebar-subtitle {
+        margin: 13px auto 0;
+        max-width: 170px;
+        font-size: 10px;
+        line-height: 1.35;
+        color: var(--muted);
+      }
+
+      .df-site-sidebar .toc {
+        position: static;
+        flex: 1 1 auto;
+        min-height: 0;
+        width: auto;
+        max-height: none;
+        overflow-y: auto;
+        padding: 4px 2px 14px;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        scrollbar-width: thin;
+      }
+
+      .df-site-sidebar .toc strong {
+        display: block;
+        margin: 0 8px 10px;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: .12em;
+        color: #9a958b;
+      }
+
+      .df-site-sidebar .toc a {
+        position: relative;
+        display: flex;
+        align-items: center;
+        min-height: 38px;
+        margin: 2px 0;
+        padding: 9px 12px 9px 38px;
+        border: 0;
+        border-radius: 9px;
+        color: #4d4a45;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.25;
+        transition: background .16s ease, color .16s ease, transform .16s ease;
+      }
+
+      .df-site-sidebar .toc a::before {
+        content: "◇";
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-52%);
+        width: 14px;
+        text-align: center;
+        color: #9b978f;
+        font-size: 13px;
+        line-height: 1;
+      }
+
+      .df-site-sidebar .toc a:hover {
+        background: #f6f8ef;
+        color: #5f7f2d;
+      }
+
+      .df-site-sidebar .toc a.is-active {
+        background: linear-gradient(90deg, #eef7d7 0%, #f7f9ed 100%);
+        color: #668f2d;
+        font-weight: 700;
+      }
+
+      .df-site-sidebar .toc a.is-active::before {
+        content: "◆";
+        color: #83b83f;
+      }
+
+      .df-site-sidebar .df-toc-add-section {
+        margin: 12px 4px 0;
+      }
+
+      .df-sidebar-footer {
+        flex: 0 0 auto;
+        margin-top: 12px;
+        padding: 12px 10px 2px;
+        border-top: 1px solid #eee7dc;
+        font-size: 10px;
+        line-height: 1.35;
+        color: #9a958b;
+        text-align: center;
+      }
+
+      .shell {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 24px 30px 24px;
+      }
+
+      .layout {
+        display: block;
+      }
+
+      body.df-admin-mode {
+        padding-left: var(--df-sidebar-width);
+      }
+
+      body.df-admin-mode .df-site-sidebar {
+        top: 66px;
+        height: calc(100vh - 66px);
+      }
+
+      main {
+        width: 100%;
+        min-width: 0;
+      }
+    }
+
+    @media (max-width: 1000px) {
+      body,
+      body.df-admin-mode {
+        padding-left: 0;
+      }
+
+      .df-site-sidebar {
+        position: static;
+        width: auto;
+        margin: 0 14px 18px;
+        padding: 18px;
+        background: #fffdf9;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+      }
+
+      .df-sidebar-brand {
+        text-align: center;
+        padding-bottom: 14px;
+      }
+
+      .df-sidebar-logo {
+        display: block;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 25px;
+        color: #6e9d31;
+      }
+
+      .df-sidebar-logo small {
+        display: block;
+        margin-top: 5px;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: .3em;
+        color: var(--orange);
+      }
+
+      .df-sidebar-subtitle {
+        margin: 8px 0 0;
+        font-size: 10px;
+        color: var(--muted);
+      }
+
+      .df-site-sidebar .toc {
+        position: static;
+        width: auto;
+        max-height: none;
+        overflow: visible;
+        border: 0;
+        background: transparent;
+        padding: 10px 0 0;
+      }
+
+      .df-site-sidebar .toc a {
+        display: block;
+        margin: 2px 0;
+        padding: 8px 10px;
+        border: 0;
+        border-radius: 8px;
+      }
+
+      .df-site-sidebar .toc a.is-active {
+        background: var(--green-soft);
+        color: #5c7d28;
+        font-weight: 700;
+      }
+
+      .df-sidebar-footer {
+        display: none;
+      }
+
+      .layout {
+        display: block;
+      }
+
+      .shell {
+        max-width: 1180px;
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .df-site-sidebar {
+        margin: 0 10px 14px;
+      }
+
+      .shell {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+    }
+
+
+
+
+    /* V1.9 — Refinamento visual corporativo
+       Escopo: sidebar, hierarquia, respiro e padronização de cards. */
+
+    :root {
+      --df-surface: #fffefa;
+      --df-surface-soft: #faf8f3;
+      --df-border-soft: #ebe5da;
+      --df-shadow-soft: 0 10px 30px rgba(48,48,47,.045);
+      --df-shadow-card: 0 5px 18px rgba(48,48,47,.035);
+    }
+
+    body {
+      background: #f6f4ef;
+    }
+
+    /* Conteúdo principal: mais respiro e leitura */
+    @media (min-width: 1001px) {
+      .shell {
+        max-width: 1280px;
+        padding: 30px 38px 36px;
+      }
+    }
+
+    .topbar {
+      min-height: 58px;
+      padding: 10px 2px 15px;
+      border-bottom-color: var(--df-border-soft);
+    }
+
+    .brand img {
+      width: 158px;
+    }
+
+    /* Hero: aparência mais editorial e menos "caixa" */
+    .hero {
+      margin: 24px 0 28px;
+      padding: 42px 42px 34px;
+      border-color: var(--df-border-soft);
+      border-radius: 20px;
+      background: linear-gradient(135deg, #fffefa 0%, #fffaf4 62%, #f3f8e8 100%);
+      box-shadow: var(--df-shadow-soft);
+      gap: 38px;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      color: #8a847a;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin-top: 12px;
+      margin-bottom: 17px;
+      font-size: clamp(38px, 4.5vw, 58px);
+      line-height: 1.01;
+      letter-spacing: -.045em;
+    }
+
+    h2 {
+      font-size: 27px;
+      line-height: 1.12;
+      letter-spacing: -.03em;
+    }
+
+    .lead {
+      max-width: 680px;
+      font-size: 17px;
+      line-height: 1.6;
+      color: #5d5952;
+    }
+
+    .palette {
+      height: 7px;
+      width: min(360px, 100%);
+      margin-top: 25px;
+    }
+
+    .hero-visual {
+      min-height: 310px;
+    }
+
+    .hero-logos {
+      gap: 34px;
+      padding: 25px 22px 2px;
+      border-top-color: var(--df-border-soft);
+    }
+
+    /* Seções: menos borda, mais hierarquia */
+    section {
+      scroll-margin-top: 30px;
+      margin-bottom: 26px;
+    }
+
+    .section {
+      padding: 30px 32px 32px;
+      border: 1px solid var(--df-border-soft);
+      border-radius: 16px;
+      background: var(--df-surface);
+      box-shadow: var(--df-shadow-card);
+    }
+
+    .section + .section {
+      margin-top: 24px;
+    }
+
+    .section-head {
+      position: relative;
+      margin-bottom: 22px;
+      padding-bottom: 17px;
+      border-bottom: 1px solid #f0ebe2;
+      gap: 24px;
+    }
+
+    .section-head::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      width: 44px;
+      height: 2px;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--green), var(--orange));
+    }
+
+    .section-head h2 {
+      margin-bottom: 8px;
+    }
+
+    .num {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #f4f6ee;
+      color: #77805e;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .13em;
+    }
+
+    /* Cards internos: mesma linguagem visual */
+    .box {
+      padding: 18px;
+      border: 1px solid var(--df-border-soft);
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 2px 9px rgba(48,48,47,.025);
+    }
+
+    .grid-2 { gap: 18px; }
+    .grid-3 { gap: 16px; }
+    .grid-4 { gap: 14px; }
+    .grid-5 { gap: 12px; }
+
+    .soft-green {
+      background: #f5fae9;
+      border-color: #dfeac7;
+    }
+
+    .soft-orange {
+      background: #fff8ee;
+      border-color: #f2dec1;
+    }
+
+    .soft-red {
+      background: #fff6f3;
+      border-color: #efd5cd;
+    }
+
+    .soft-sand {
+      background: #faf8f4;
+      border-color: #ece5da;
+    }
+
+    .step {
+      border-top-width: 3px;
+    }
+
+    .step-number {
+      margin-bottom: 5px;
+      font-size: 25px;
+    }
+
+    .pill {
+      padding: 5px 10px;
+      border: 1px solid #e1ebcc;
+      background: #f4f8eb;
+      font-size: 11px;
+    }
+
+    .quote {
+      border-left-width: 3px;
+      background: #fffbf3;
+    }
+
+    table {
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow: hidden;
+      border: 1px solid var(--df-border-soft);
+      border-radius: 11px;
+      background: #fff;
+    }
+
+    th, td {
+      border: 0;
+      border-right: 1px solid var(--df-border-soft);
+      border-bottom: 1px solid var(--df-border-soft);
+      padding: 11px 12px;
+    }
+
+    tr > *:last-child { border-right: 0; }
+    tbody tr:last-child td { border-bottom: 0; }
+
+    th {
+      background: #f8f5ef;
+      color: #5c574f;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Parceiros alinhados à linguagem dos demais cards */
+    .partners {
+      margin-bottom: 28px;
+      padding: 27px 30px;
+      border-color: var(--df-border-soft);
+      border-radius: 16px;
+      background: var(--df-surface);
+      box-shadow: var(--df-shadow-card);
+    }
+
+    .partners-head {
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #f0ebe2;
+    }
+
+    .partners-kicker {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .17em;
+      color: #8a847a;
+    }
+
+    .partners h2 {
+      font-size: 21px;
+    }
+
+    .partners-copy {
+      line-height: 1.5;
+    }
+
+    .partners-grid {
+      gap: 12px;
+    }
+
+    .partner-card {
+      min-height: 96px;
+      border-color: var(--df-border-soft);
+      border-radius: 12px;
+      box-shadow: 0 2px 9px rgba(48,48,47,.02);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .partner-card:hover {
+        transform: translateY(-2px);
+        border-color: #d8d0c3;
+        box-shadow: 0 9px 22px rgba(48,48,47,.055);
+      }
+    }
+
+    /* Sidebar: mais próxima de um produto corporativo */
+    @media (min-width: 1001px) {
+      :root {
+        --df-sidebar-width: 264px;
+      }
+
+      .df-site-sidebar {
+        padding: 27px 18px 17px;
+        background: #fffefa;
+        border-right-color: var(--df-border-soft);
+        box-shadow: 6px 0 24px rgba(48,48,47,.025);
+      }
+
+      .df-sidebar-brand {
+        padding: 2px 10px 24px;
+        border-bottom: 1px solid #f0ebe2;
+        margin-bottom: 13px;
+      }
+
+      .df-sidebar-logo {
+        font-size: 25px;
+        letter-spacing: .035em;
+      }
+
+      .df-sidebar-logo small {
+        margin-top: 7px;
+        font-size: 9px;
+        letter-spacing: .32em;
+      }
+
+      .df-sidebar-subtitle {
+        margin-top: 12px;
+        max-width: 175px;
+        font-size: 9.5px;
+        line-height: 1.45;
+      }
+
+      .df-site-sidebar .toc {
+        padding: 4px 1px 14px;
+      }
+
+      .df-site-sidebar .toc strong {
+        margin: 5px 11px 10px;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: .15em;
+      }
+
+      .df-site-sidebar .toc a {
+        min-height: 39px;
+        margin: 3px 0;
+        padding: 9px 11px 9px 39px;
+        border-radius: 8px;
+        color: #55514b;
+        font-size: 11.5px;
+        font-weight: 500;
+      }
+
+      .df-site-sidebar .toc a::before {
+        left: 15px;
+        color: #aaa49b;
+        font-size: 12px;
+      }
+
+      .df-site-sidebar .toc a:hover {
+        background: #f5f7ef;
+        color: #617e32;
+      }
+
+      .df-site-sidebar .toc a.is-active {
+        background: linear-gradient(90deg, #edf6d8 0%, #f7f8ee 100%);
+        color: #63852d;
+        font-weight: 700;
+        box-shadow: inset 3px 0 0 #93c644;
+      }
+
+      .df-site-sidebar .toc a.is-active::before {
+        color: #79aa35;
+      }
+
+      .df-sidebar-footer {
+        padding-top: 13px;
+        border-top-color: #f0ebe2;
+        color: #aaa49b;
+        font-size: 9px;
+      }
+    }
+
+    /* Mobile: mantém a mesma linguagem sem sacrificar espaço */
+    @media (max-width: 620px) {
+      .hero {
+        padding: 24px 20px;
+        margin-top: 16px;
+      }
+
+      .section {
+        padding: 22px 20px 24px;
+      }
+
+      .section-head {
+        margin-bottom: 18px;
+        padding-bottom: 14px;
+      }
+
+      .partners {
+        padding: 22px 20px;
+      }
+
+      h1 {
+        font-size: 35px;
+      }
+    }
+
+
+    /* V1.10 CORRIGIDA — somente posicionamento da barra colorida do hero */
+    .hero .palette {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 6px;
+      width: auto;
+      height: 7px;
+      margin: 0;
+      border-radius: 99px;
+      z-index: 2;
+    }
+
+/* Dermo Friends V1.19 — parceiros dinâmicos e carrossel */
+.partners-carousel{position:relative;padding:0 34px}
+.partners-grid{display:flex!important;gap:18px!important;overflow:hidden!important;scroll-behavior:smooth;scroll-snap-type:x mandatory}
+.partners-grid .partner-card{flex:0 0 calc((100% - 72px)/5);min-width:0;scroll-snap-align:start}
+.df-partner-nav{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:44px;border:1px solid #e8dccb;border-radius:12px;background:#fff;color:#6a5b4d;font-size:25px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:4;box-shadow:0 4px 14px rgba(55,42,25,.08)}
+.df-partner-nav.prev{left:-7px}.df-partner-nav.next{right:-7px}.df-partner-nav[hidden]{display:none!important}
+.df-partner-adminbar{display:none;align-items:center;gap:10px;margin:0 0 14px;flex-wrap:wrap}
+body.df-admin-mode .df-partner-adminbar{display:flex}
+.df-partner-add{border:1px solid #d9b77c;background:#fffaf1;color:#516b2d;border-radius:10px;padding:9px 13px;font-weight:800;cursor:pointer}
+body.df-admin-mode .partners-grid{overflow-x:auto!important;scroll-snap-type:none}
+body.df-admin-mode .partner-card{cursor:grab!important}
+body.df-admin-mode .partner-card.df-partner-dragging{opacity:.45;cursor:grabbing!important}
+.df-partner-drag-handle,.df-partner-delete{display:none;position:absolute;z-index:8;top:8px;border:1px solid #e4cda6;background:#fffaf1;border-radius:9px;padding:6px 8px;font-weight:800;cursor:pointer;color:#526d2f}
+.df-partner-drag-handle{left:8px}.df-partner-delete{right:8px;color:#9a4938}
+body.df-admin-mode .df-partner-drag-handle,body.df-admin-mode .df-partner-delete{display:inline-flex}
+@media(max-width:900px){.partners-grid .partner-card{flex-basis:calc((100% - 18px)/2)}}
+@media(max-width:560px){.partners-carousel{padding:0 28px}.partners-grid .partner-card{flex-basis:100%}}
+
+</style>
+
+
+
+
+<style id="df-admin-styles">
+  :root{--admin-green:#6aae2f;--admin-green-soft:#eef8dc;--admin-orange:#f47a20;--admin-sand:#fffaf0;--admin-border:#d8cbb5;--admin-ink:#202020}
+  .df-admin-only{display:none!important}
+  body.df-admin-mode{padding-top:66px}
+  body.df-admin-mode .df-admin-only{display:flex!important}
+  body.df-admin-mode .df-public-admin-launch{display:none!important}
+  .df-public-admin-launch{appearance:none;border:1px solid #c9b99c;background:#fffaf0;color:#4d5e2b;border-radius:999px;padding:8px 12px;font:600 12px/1 system-ui,-apple-system,Segoe UI,sans-serif;cursor:pointer;margin-left:10px;white-space:nowrap}
+  .df-public-admin-launch:hover{border-color:#7cae37;background:#f4f9e8}
+  .df-admin-toolbar{position:fixed;z-index:999999;left:0;right:0;top:0;height:66px;padding:0 18px;background:rgba(255,250,240,.97);backdrop-filter:blur(10px);border-bottom:1px solid #dccfb8;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 5px 18px rgba(54,43,25,.08);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+  .df-admin-toolbar__brand{display:flex;align-items:center;gap:12px;min-width:0}
+  .df-admin-badge{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:#eef8dc;color:#568c25;font-size:18px;font-weight:800}
+  .df-admin-toolbar h2{margin:0;font-size:16px;color:#202020;line-height:1.15}
+  .df-admin-toolbar p{margin:3px 0 0;font-size:11px;color:#756d61}
+  .df-admin-toolbar__actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+  .df-admin-btn{appearance:none;border:1px solid #d6c8ae;background:#fff;color:#4f4b43;border-radius:9px;padding:9px 12px;font:600 12px/1 system-ui,-apple-system,Segoe UI,sans-serif;cursor:pointer}
+  .df-admin-btn:hover{border-color:#8fb94d;background:#fbfff5}.df-admin-btn.primary{background:#6aae2f;border-color:#6aae2f;color:#fff}.df-admin-btn.orange{background:#fff7ef;border-color:#f0b079;color:#d45f0d}
+  .df-admin-save-status{font-size:11px;color:#6e7467;min-width:90px;text-align:right}
+  .df-admin-login-panel{width:min(420px,94vw)!important}
+  .df-admin-login-copy{font-size:12px;color:#756d61;margin:-4px 0 16px}
+  .df-admin-login-error{display:none;margin:8px 0 0;padding:9px 10px;border:1px solid #e5b1a4;border-radius:8px;background:#fff4f1;color:#a23f2b;font-size:12px}
+  .df-admin-login-error.is-visible{display:block}
+  .df-admin-login-form .df-form-row input{width:100%;box-sizing:border-box;border:1px solid #d3c5aa;border-radius:8px;padding:10px 11px;background:#fff}
+  .df-admin-login-form .df-form-row input:focus{outline:0;border-color:#8fb94d;box-shadow:0 0 0 3px rgba(106,174,47,.12)}
+  body.df-admin-mode [data-df-editable]{outline:1px dashed transparent;outline-offset:3px;border-radius:4px;transition:.18s ease;cursor:text}
+  body.df-admin-mode [data-df-editable]:hover,body.df-admin-mode [data-df-editable]:focus{outline-color:#88b64c;background:rgba(238,248,220,.55)}
+  body.df-admin-mode [data-df-editable][contenteditable="true"]:focus{box-shadow:0 0 0 3px rgba(106,174,47,.12)}
+  .df-edit-control{display:none;align-items:center;justify-content:center;position:absolute;z-index:50;right:7px;top:7px;border:1px solid #ddc8a7;background:#fffaf0;color:#64782f;border-radius:7px;min-width:30px;height:30px;padding:0 8px;font:700 12px/1 system-ui,-apple-system,Segoe UI,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(40,32,20,.08)}
+  body.df-admin-mode .df-edit-control{display:inline-flex}
+  .df-image-edit-host{position:relative!important}
+  body.df-admin-mode .df-image-edit-host{outline:1px dashed rgba(106,174,47,.52);outline-offset:3px}
+  .df-section-admin{position:relative!important}
+  body.df-admin-mode .df-section-admin{box-shadow:0 0 0 1px rgba(214,187,145,.45)}
+  .df-section-control{display:none;position:absolute;z-index:70;right:10px;top:10px;gap:6px;align-items:center}
+  body.df-admin-mode .df-section-control{display:flex}
+  .df-section-control button{border:1px solid #d9c49e;background:#fffaf0;color:#65762f;border-radius:7px;padding:6px 9px;font:700 11px/1 system-ui,-apple-system,Segoe UI,sans-serif;cursor:pointer}
+  .df-admin-modal{display:none;position:fixed;inset:0;z-index:1000000;background:rgba(31,27,20,.38);align-items:center;justify-content:center;padding:22px;font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+  .df-admin-modal.open{display:flex}.df-admin-modal__panel{width:min(880px,96vw);max-height:88vh;overflow:auto;background:#fffdf8;border:1px solid #d9caae;border-radius:16px;box-shadow:0 28px 70px rgba(34,29,20,.25);padding:20px}
+  .df-admin-modal__head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.df-admin-modal__head h3{margin:0;font-size:19px}.df-admin-close{border:0;background:#f2eee5;border-radius:999px;width:34px;height:34px;cursor:pointer;font-size:18px}
+  .df-upload-zone{border:1.5px dashed #cbb990;border-radius:12px;background:#fffaf1;padding:18px;text-align:center;margin-bottom:16px}.df-upload-zone input{max-width:100%}.df-upload-help{font-size:12px;color:#766f63;margin-top:7px}
+  .df-library-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}.df-library-item{position:relative;border:1px solid #ded2bd;border-radius:11px;background:white;overflow:hidden;min-height:135px}.df-library-item img{display:block;width:100%;height:105px;object-fit:contain;background:#faf8f2}.df-library-item__foot{display:flex;gap:6px;justify-content:space-between;align-items:center;padding:7px}.df-library-item__name{font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:85px}.df-library-item button{border:1px solid #cfc0a4;background:#fffaf0;border-radius:6px;font-size:10px;padding:5px 7px;cursor:pointer}.df-library-empty{padding:30px;text-align:center;color:#766f63;border:1px dashed #d9caae;border-radius:10px;grid-column:1/-1}
+  .df-image-editor-preview{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:14px}.df-image-editor-preview img{max-width:260px;max-height:200px;object-fit:contain;border:1px solid #ddd0ba;border-radius:10px;background:#faf8f2}.df-image-editor-meta{flex:1;min-width:220px}.df-form-row{margin-bottom:12px}.df-form-row label{display:block;font-size:11px;font-weight:700;margin-bottom:5px;color:#4d493f}.df-form-row input[type="text"]{width:100%;box-sizing:border-box;border:1px solid #d3c5aa;border-radius:8px;padding:9px 10px;background:#fff}
+  .df-modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+  body.df-admin-mode a[href]{position:relative}
+  body.df-admin-mode a[href]:not(.df-admin-btn):not(.df-public-admin-launch){cursor:text}
+  .df-toc-add-section{display:none;width:100%;margin-top:12px;border:1px dashed #9fbc65;background:#f6fbe9;color:#58752c;border-radius:9px;padding:9px 10px;font:700 12px/1.2 system-ui,-apple-system,Segoe UI,sans-serif;cursor:pointer;text-align:center}
+  body.df-admin-mode .df-toc-add-section{display:block}
+  .df-toc-add-section:hover{background:#eef8dc;border-color:#78a63a}
+  .df-bulk-delete{display:none!important;background:#fff3ef!important;border-color:#e6a18f!important;color:#a23f2b!important}
+  body.df-admin-mode .df-bulk-delete.is-active{display:inline-flex!important}
+  .df-section-control .df-section-select-wrap{display:inline-flex;align-items:center;gap:5px;border:1px solid #d9c49e;background:#fffaf0;color:#65762f;border-radius:7px;padding:5px 7px;font:700 11px/1 system-ui,-apple-system,Segoe UI,sans-serif;cursor:pointer}
+  .df-section-control .df-section-select{margin:0;accent-color:#6aae2f}
+  .df-section-control .df-drag-handle{cursor:grab;user-select:none}
+  .df-section-control .df-drag-handle:active{cursor:grabbing}
+  .df-section-control .df-delete-section{color:#a23f2b;border-color:#e5b1a4;background:#fff6f3}
+  .df-partner-edit{display:none;position:absolute;z-index:80;right:7px;top:7px;border:1px solid #d9c49e;background:#fffaf0;color:#65762f;border-radius:7px;padding:7px 9px;font:700 11px/1 system-ui,-apple-system,Segoe UI,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(40,32,20,.08)}
+  body.df-admin-mode .partner-card{position:relative!important;outline:1px dashed rgba(106,174,47,.52);outline-offset:3px;cursor:default!important}
+  body.df-admin-mode .partner-card .df-partner-edit{display:inline-flex}
+  .df-partner-editor{display:grid;grid-template-columns:minmax(220px,300px) minmax(280px,1fr);gap:20px;align-items:start}
+  .df-partner-preview-box{min-height:180px;display:flex;align-items:center;justify-content:center;border:1px solid #ddd0ba;border-radius:12px;background:#faf8f2;padding:18px}
+  .df-partner-preview-box img{display:block;max-width:100%;max-height:150px;object-fit:contain}
+  .df-partner-editor-fields .df-form-row input[type="url"]{width:100%;box-sizing:border-box;border:1px solid #d3c5aa;border-radius:8px;padding:9px 10px;background:#fff}
+  .df-partner-check{display:flex;align-items:center;gap:8px;font-size:12px;color:#4d493f;margin:2px 0 14px}
+  .df-partner-image-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .df-partner-image-actions input[type="file"]{max-width:100%}
+  .df-partner-scale-row{display:grid;grid-template-columns:1fr auto;gap:8px 12px;align-items:center}
+  .df-partner-scale-row input[type="range"]{grid-column:1 / -1;width:100%;accent-color:#6aae2f}
+  .df-partner-scale-value{font-weight:700;color:#65762f;min-width:48px;text-align:right}
+  @media(max-width:680px){.df-partner-editor{grid-template-columns:1fr}.df-partner-preview-box{min-height:140px}}
+  body.df-admin-mode main>section.section.df-selected{box-shadow:0 0 0 2px rgba(162,63,43,.35)}
+  body.df-admin-mode main>section.section.df-dragging{opacity:.45}
+  body.df-admin-mode main>section.section.df-drop-before{box-shadow:0 -5px 0 0 #6aae2f,0 0 0 1px rgba(214,187,145,.45)}
+  body.df-admin-mode main>section.section.df-drop-after{box-shadow:0 5px 0 0 #6aae2f,0 0 0 1px rgba(214,187,145,.45)}
+  @media(max-width:760px){body.df-admin-mode{padding-top:104px}.df-admin-toolbar{height:auto;min-height:92px;padding:8px 10px;align-items:flex-start}.df-admin-toolbar__actions{gap:5px}.df-admin-btn{padding:8px 9px}.df-admin-save-status{display:none}.df-edit-control{right:4px;top:4px}.df-section-control{right:5px;top:5px}}
+</style>
+
+</head><body>
+
+<div id="dfAdminToolbar" class="df-admin-toolbar df-admin-only" aria-label="Painel administrativo Dermo Friends">
+  <div class="df-admin-toolbar__brand">
+    <div class="df-admin-badge">✎</div>
+    <div><h2>Painel Administrativo</h2><p>Edite textos, títulos, descrições e imagens diretamente no layout.</p></div>
+  </div>
+  <div class="df-admin-toolbar__actions">
+    <span id="dfSaveStatus" class="df-admin-save-status">Pronto</span>
+    <button class="df-admin-btn df-bulk-delete" id="dfDeleteSelected" type="button" disabled>Excluir selecionadas (0)</button>
+    <button class="df-admin-btn orange" id="dfManageBanners" type="button">Banners de abertura</button>
+    <button class="df-admin-btn orange" id="dfOpenLibrary" type="button">Biblioteca de imagens</button>
+    <button class="df-admin-btn" id="dfExportContent" type="button">Exportar conteúdo</button>
+    <button class="df-admin-btn" id="dfExitAdmin" type="button">Ver site</button>
+    <button class="df-admin-btn primary" id="dfSaveAll" type="button">Salvar alterações</button>
+  </div>
+</div>
+<div class="df-admin-modal" id="dfAdminLoginModal" role="dialog" aria-modal="true" aria-label="Login administrativo">
+  <div class="df-admin-modal__panel df-admin-login-panel">
+    <div class="df-admin-modal__head">
+      <h3>Acesso administrativo</h3>
+      <button class="df-admin-close" type="button" data-df-close="dfAdminLoginModal">×</button>
+    </div>
+    <p class="df-admin-login-copy">Informe suas credenciais para acessar o painel de edição.</p>
+    <form id="dfAdminLoginForm" class="df-admin-login-form" autocomplete="off">
+      <div class="df-form-row">
+        <label for="dfAdminUser">Usuário</label>
+        <input id="dfAdminUser" type="text" autocomplete="username" required>
+      </div>
+      <div class="df-form-row">
+        <label for="dfAdminPassword">Senha</label>
+        <input id="dfAdminPassword" type="password" autocomplete="current-password" required>
+      </div>
+      <div id="dfAdminLoginError" class="df-admin-login-error" role="alert">Usuário ou senha incorretos.</div>
+      <div class="df-modal-actions">
+        <button class="df-admin-btn" type="button" data-df-close="dfAdminLoginModal">Cancelar</button>
+        <button class="df-admin-btn primary" type="submit">Entrar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="df-admin-modal" id="dfBannerManagerModal" role="dialog" aria-modal="true" aria-label="Banners de abertura"><div class="df-admin-modal__panel"><div class="df-admin-modal__head"><h3>Banners de abertura</h3><button class="df-admin-close" type="button" data-df-close="dfBannerManagerModal">×</button></div><p class="df-admin-login-copy">Cadastre vários banners para a entrada do site. Você pode ativar, ordenar, vincular e excluir cada peça.</p><div class="df-banner-addbox"><div class="df-form-row"><label for="dfBannerUpload">Adicionar novo banner</label><input id="dfBannerUpload" type="file" accept="image/*"></div><button class="df-admin-btn orange" id="dfBannerChooseLibrary" type="button">Escolher da biblioteca</button></div><div id="dfBannerAdminList" class="df-banner-admin-list"></div><div class="df-modal-actions"><button class="df-admin-btn" type="button" data-df-close="dfBannerManagerModal">Fechar</button><button class="df-admin-btn primary" id="dfSaveBanners" type="button">Salvar banners</button></div></div></div>
+<div class="df-admin-modal" id="dfImageLibraryModal" role="dialog" aria-modal="true" aria-label="Biblioteca de imagens">
+  <div class="df-admin-modal__panel">
+    <div class="df-admin-modal__head"><h3>Biblioteca de imagens</h3><button class="df-admin-close" type="button" data-df-close="dfImageLibraryModal">×</button></div>
+    <div class="df-upload-zone"><input id="dfLibraryUpload" type="file" accept="image/*" multiple><div class="df-upload-help">As imagens enviadas ficam armazenadas no banco de dados local do navegador (IndexedDB).</div></div>
+    <div class="df-library-grid" id="dfLibraryGrid"></div>
+  </div>
+</div>
+<div class="df-admin-modal" id="dfImageEditModal" role="dialog" aria-modal="true" aria-label="Editar imagem">
+  <div class="df-admin-modal__panel">
+    <div class="df-admin-modal__head"><h3>Editar imagem</h3><button class="df-admin-close" type="button" data-df-close="dfImageEditModal">×</button></div>
+    <div class="df-image-editor-preview"><img id="dfImagePreview" alt="Prévia da imagem"><div class="df-image-editor-meta"><div class="df-form-row"><label for="dfImageAlt">Texto alternativo</label><input id="dfImageAlt" type="text"></div><div class="df-form-row"><label>Substituir por novo arquivo</label><input id="dfImageDirectUpload" type="file" accept="image/*"></div><button class="df-admin-btn orange" id="dfChooseFromLibrary" type="button">Escolher da biblioteca</button></div></div>
+    <div class="df-modal-actions"><button class="df-admin-btn" type="button" data-df-close="dfImageEditModal">Cancelar</button><button class="df-admin-btn primary" id="dfApplyImage" type="button">Aplicar imagem</button></div>
+  </div>
+</div>
+
+<div class="df-admin-modal" id="dfPartnerEditModal" role="dialog" aria-modal="true" aria-label="Editar parceiro">
+  <div class="df-admin-modal__panel">
+    <div class="df-admin-modal__head">
+      <h3>Editar parceiro</h3>
+      <button class="df-admin-close" type="button" data-df-close="dfPartnerEditModal">×</button>
+    </div>
+    <div class="df-partner-editor">
+      <div>
+        <div class="df-partner-preview-box">
+          <img id="dfPartnerPreview" alt="Prévia da imagem do parceiro">
+        </div>
+      </div>
+      <div class="df-partner-editor-fields">
+        <div class="df-form-row">
+          <label for="dfPartnerName">Nome / título da marca</label>
+          <input id="dfPartnerName" type="text">
+        </div>
+        <div class="df-form-row">
+          <label for="dfPartnerLink">Link externo</label>
+          <input id="dfPartnerLink" type="url" placeholder="https://...">
+        </div>
+        <label class="df-partner-check">
+          <input id="dfPartnerNewTab" type="checkbox"> Abrir link em nova aba
+        </label>
+        <div class="df-form-row">
+          <label for="dfPartnerAlt">Texto alternativo da imagem</label>
+          <input id="dfPartnerAlt" type="text">
+        </div>
+        <div class="df-form-row">
+          <label>Imagem / logo</label>
+          <div class="df-partner-image-actions">
+            <input id="dfPartnerUpload" type="file" accept="image/*">
+            <button class="df-admin-btn orange" id="dfPartnerChooseLibrary" type="button">Escolher da biblioteca</button>
+          </div>
+        </div>
+        <div class="df-form-row">
+          <div class="df-partner-scale-row">
+            <label for="dfPartnerScale">Tamanho da logo</label>
+            <span id="dfPartnerScaleValue" class="df-partner-scale-value">100%</span>
+            <input id="dfPartnerScale" type="range" min="60" max="150" step="5" value="100">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="df-modal-actions">
+      <button class="df-admin-btn" type="button" data-df-close="dfPartnerEditModal">Cancelar</button>
+      <button class="df-admin-btn primary" id="dfPartnerApply" type="button">Salvar parceiro</button>
+    </div>
+  </div>
+</div>
+
+  <div class="dermo-intro" id="dermoIntro" role="dialog" aria-modal="true" aria-label="Destaques Dermo Friends"><div class="df-banner-shell"><button class="df-banner-close" id="dfBannerClose" type="button" aria-label="Fechar">×</button><button class="df-banner-nav df-banner-prev" id="dfBannerPrev" type="button" aria-label="Banner anterior">‹</button><div class="df-banner-stage" id="dfBannerStage"></div><button class="df-banner-nav df-banner-next" id="dfBannerNext" type="button" aria-label="Próximo banner">›</button><div class="df-banner-dots" id="dfBannerDots"></div></div></div><script id="df-banner-default" type="application/json">{"image":"imagens/banner_principia.png","alt":"Dermo Friends — Farmácias Associadas"}</script>
+
+<aside class="df-site-sidebar" aria-label="Navegação principal do manual">
+    <aside class="toc" data-cid="o4IdXd"><strong data-cid="2yFD2D">Navegue pelo manual</strong>
+        <a href="#como-usar" data-cid="tjXFmk">Como usar</a>
+        <a href="#papel-equipe" data-cid="6EkHPu">Papel da equipe</a>
+        <a href="#rotina" data-cid="eW1rAw">Rotina essencial</a>
+        <a href="#pele" data-cid="hJYTGj">Leitura da pele</a>
+        <a href="#ativos" data-cid="fqNNwo">Ativos e ácidos</a>
+        <a href="#protecao" data-cid="zSRSmu">Proteção solar</a>
+        <a href="#atendimento" data-cid="Bfh1kb">Atendimento consultivo</a>
+        <a href="#sensorial" data-cid="lGtvmb">Demonstração sensorial</a>
+        <a href="#mix" data-cid="KigoL_">Mix e exposição</a>
+        <a href="#indicadores" data-cid="14neR0">Indicadores simples</a>
+        <a href="#seguranca" data-cid="sAsWy9">Limites e encaminhamento</a>
+        <a href="#checklists" data-cid="uKvaDV">Checklists</a>
+        <a href="#treinamento" data-cid="K83Mfg">Treinamento</a>
+      </aside>
+    <div class="df-sidebar-footer">Navegação automática conectada às seções do manual.</div>
+  </aside>
+
+  <div class="shell" id="topo" data-cid="b4s8S0">
+    <header class="topbar" data-cid="mXS9a9">
+      <div class="brand" data-cid="kWNykZ"><img src="imagens/logo_dermofriends.png" alt="Dermo Friends" data-cid="A0oPB-"></div>
+      <div class="tag" data-cid="5oSdnl">Consulta digital para equipes de farmácia</div>
+    </header>
+
+    <section class="hero" data-cid="W4DCm1">
+      <div data-cid="bjRkZT">
+        <div class="eyebrow" data-cid="QO4mG3"> manual digital</div>
+        <h1 data-cid="67375T">Boas práticas que cabem na rotina da farmácia</h1><p class="lead" data-cid="6JAToJ">Um manual de consulta rápida para balconistas e responsáveis pela categoria: mais clareza no atendimento, mais lógica no mix e mais segurança na orientação.</p>
+        <div class="palette editor-empty-block" aria-label="Paleta de referência" data-cid="g044HJ"><i class="c1" data-cid="pN6erH"></i><i class="c2" data-cid="2I5JOm"></i><i class="c3" data-cid="VDyYgh"></i><i class="c4" data-cid="x5P2Vz"></i><i class="c5" data-cid="RCBN4f"></i><i class="c6" data-cid="-0X7bm"></i></div>
+      </div>
+      <div class="hero-visual" data-cid="kbVdoQ"><img class="hero-person" src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skycode/video/2026-08-26/2092627376736735232.png" alt="Pessoa sorrindo em uma rotina de cuidados" data-cid="heroNovaFoto" style=""></div>
+      </section>
+
+    <section class="partners" aria-labelledby="partners-title">
+      <div class="partners-head">
+        <div>
+          <span class="partners-kicker">Parceiros</span>
+          <h2 id="partners-title">Marcas que apoiam o cuidado dermocosmético</h2>
+        </div>
+        <p class="partners-copy">Referências de parceiros do Dermofriends para apoiar a jornada de cuidado nas Farmácias Associadas.</p>
+      </div>
+      <div class="df-partner-adminbar"><button type="button" class="df-partner-add" id="dfAddPartner">+ Adicionar parceiro</button><span>Arraste os cards para alterar a ordem.</span></div>
+      <div class="partners-carousel">
+        <button class="df-partner-nav prev" id="dfPartnerPrev" type="button" aria-label="Parceiros anteriores">‹</button>
+        <div class="partners-grid" id="dfPartnersGrid">
+        <!-- Troque # pelo link externo de cada marca quando desejar. -->
+        <a class="partner-card" href="#" target="_blank" rel="noopener noreferrer" aria-label="Abrir site da Eucerin">
+          <img src="imagens/eucerin.png" alt="Eucerin">
+        </a>
+        <a class="partner-card" href="#" target="_blank" rel="noopener noreferrer" aria-label="Abrir site da Galderma">
+          <img src="imagens/galderma.png" alt="Galderma">
+        </a>
+        <a class="partner-card" href="#" target="_blank" rel="noopener noreferrer" aria-label="Abrir site da ISDIN">
+          <img src="imagens/isdin.png" alt="ISDIN">
+        </a>
+        <a class="partner-card neutrogena" href="#" target="_blank" rel="noopener noreferrer" aria-label="Abrir site da Neutrogena">
+          <img src="imagens/neutrogena.png" alt="Neutrogena">
+        </a>
+        <a class="partner-card" href="#" target="_blank" rel="noopener noreferrer" aria-label="Abrir site da Pierre Fabre">
+          <img src="imagens/pierre.png" alt="Pierre Fabre">
+        </a>
+        <a class="partner-card" href="https://farmaciasassociadascombr.sharepoint.com/:f:/s/ComercialAssociadas/IgAT6YvyOPqRRp6omdR4WhW0AdW8Jwfo-zbcjplJB5hH0B0?e=5qd02H" target="_blank" rel="noopener noreferrer" aria-label="Abrir site da Principia">
+          <img src="imagens/principia.png" alt="Principia">
+        </a>
+        </div>
+        <button class="df-partner-nav next" id="dfPartnerNext" type="button" aria-label="Próximos parceiros">›</button>
+      </div>
+    </section>
+
+    <div class="layout" data-cid="gOeyAc">
+
+      <main data-cid="rg-e-L">
+        <section id="como-usar" class="section" data-cid="sUNteg">
+          <div class="section-head" data-cid="8VcsbR"><div data-cid="Kp5Hv7"><div class="num" data-cid="DWM74B">01 · Comece aqui</div><h2 data-cid="0ldvlv">Como usar este manual</h2></div><a class="back" href="#topo" data-cid="X1lxQC">voltar ao topo</a></div>
+          <p data-cid="JOKWMz">Use este material em três momentos: antes do atendimento, durante a conversa e na revisão da categoria. A proposta é transformar informação em pequenos hábitos que a equipe consegue repetir.</p>
+          <div class="grid-3" data-cid="HfSNte">
+            <div class="box soft-green" data-cid="gfHQF-"><h3 data-cid="c2gkGo">Antes</h3><p data-cid="YVwQqW">Revise a necessidade principal do cliente e escolha uma prioridade.</p></div>
+            <div class="box soft-orange" data-cid="-kaobd"><h3 data-cid="weOpFg">Durante</h3><p data-cid="JHEy63">Faça perguntas curtas, explique a ordem de uso e valide o entendimento.</p></div>
+            <div class="box soft-sand" data-cid="dZ4k9J"><h3 data-cid="FwP5Gm">Depois</h3><p data-cid="2zy7Iz">Registre aprendizados, dúvidas recorrentes e oportunidades de melhoria.</p></div>
+          </div>
+          <p class="quote" data-cid="sgaQ-B">Uma boa recomendação não é a que apresenta mais produtos; é a que ajuda o cliente a decidir melhor.</p>
+        </section>
+
+        <section id="papel-equipe" class="section" data-cid="5n7xJX">
+          <div class="section-head" data-cid="dAKaX-"><div data-cid="Uok8zc"><div class="num" data-cid="yl-YPM">02 · Fundamentos</div><h2 data-cid="2wFuKg">O papel da equipe na categoria</h2></div><a class="back" href="#topo" data-cid="FMhTcf">voltar ao topo</a></div>
+          <div class="do-dont" data-cid="0U9YuB">
+            <div class="box soft-green" data-cid="o3WHxD"><h3 data-cid="av_gHS">O que a equipe faz</h3><ul data-cid="q9IG6e"><li data-cid="BiaGRF">acolhe e escuta;</li><li data-cid="ZnDhcc">traduz a necessidade em uma rotina possível;</li><li data-cid="njaX6N">explica finalidade, textura e uso;</li><li data-cid="Qgx6xF">organiza a jornada entre limpeza, hidratação, tratamento e proteção;</li><li data-cid="p0yBj6">reconhece quando é hora de encaminhar.</li></ul></div>
+            <div class="box soft-red" data-cid="Ln45Xh"><h3 data-cid="fCdkd8">O que a equipe não faz</h3><ul data-cid="w7SkDJ"><li data-cid="HyyI_q">diagnóstico;</li><li data-cid="7dCOXl">promessa de cura ou resultado garantido;</li><li data-cid="FF_jrY">alteração de tratamento prescrito;</li><li data-cid="OwjNYT">indicação automática de vários ativos;</li><li data-cid="jyKYkx">minimização de sinais persistentes.</li></ul></div>
+          </div>
+        </section>
+
+        <section id="rotina" class="section" data-cid="rNGoLG">
+          <div class="section-head" data-cid="foPrWJ"><div data-cid="aXrm_G"><div class="num" data-cid="VYLHGj">03 · Jornada de cuidado</div><h2 data-cid="f3qByg">Rotina essencial em quatro movimentos</h2></div><a class="back" href="#topo" data-cid="k7kVdt">voltar ao topo</a></div>
+          <div class="grid-4" data-cid="NUDsWj">
+            <div class="box step" data-cid="FOXt4r"><div class="step-number" data-cid="TtOpxB">01</div><h3 data-cid="TwmCar">Limpar</h3><p data-cid="s5hWKA">Remover resíduos sem agredir. Evite água muito quente e fricção.</p></div>
+            <div class="box step" data-cid="EL4eM3"><div class="step-number" data-cid="mLCIvl">02</div><h3 data-cid="EMUEbH">Hidratar</h3><p data-cid="pc74aw">Confortar e fortalecer. A textura precisa ser possível de manter.</p></div>
+            <div class="box step" data-cid="h245yH"><div class="step-number" data-cid="gzfZeb">03</div><h3 data-cid="k3tcQt">Tratar</h3><p data-cid="nkWQj9">Entrar com uma necessidade por vez, observando a resposta.</p></div>
+            <div class="box step" data-cid="CibHnT"><div class="step-number" data-cid="NkPhM3">04</div><h3 data-cid="0NZXK7">Proteger</h3><p data-cid="CCQ21v">Preservar o cuidado diário com quantidade e reaplicação adequadas.</p></div>
+          </div>
+          <h3 style="margin-top:18px" data-cid="2fehK-">Ordem fácil de explicar</h3>
+          <div class="sk-doc-native-table-frame" data-scroll-left-active="false" data-scroll-right-active="false" data-scrolling="false" data-cid="94gibI"><table data-cid="VG8-3h"><thead data-cid="TXfTUS"><tr data-cid="7lm2cE"><th data-cid="7DEIC3">Se o cliente pergunta...</th><th data-cid="fg5-bC">Responda com...</th></tr></thead><tbody data-cid="6jWL4B">
+            <tr data-cid="kgIgz3"><td data-cid="DmIIrb">“Preciso de tudo?”</td><td data-cid="tHht9y">Comece pelo essencial e acrescente apenas o que fizer sentido.</td></tr>
+            <tr data-cid="cK1Be_"><td data-cid="CCptVJ">“Posso usar vários produtos novos?”</td><td data-cid="dIyCQ3">É mais seguro introduzir um por vez para observar a resposta.</td></tr>
+            <tr data-cid="IWilUH"><td data-cid="rq2jmk">“Qual é o mais importante?”</td><td data-cid="RzFbjP">Uma rotina possível é melhor do que uma rotina abandonada.</td></tr>
+          </tbody></table></div>
+        </section>
+
+        <section id="pele" class="section" data-cid="6vM57u">
+          <div class="section-head" data-cid="0X-dPa"><div data-cid="N9DJXU"><div class="num" data-cid="n9eGPu">04 · Leitura sem diagnóstico</div><h2 data-cid="hlI2BD">Conhecer a pele para fazer perguntas melhores</h2></div><a class="back" href="#topo" data-cid="9lMgYV">voltar ao topo</a></div>
+          <p data-cid="_y0OXR">Tipo de pele é uma tendência; estado da pele muda. Em vez de rotular, observe sinais e convide o cliente a contar o que sente.</p>
+          <div class="sk-doc-native-table-frame" data-scroll-left-active="false" data-scroll-right-active="false" data-scrolling="false" data-cid="s1eJ4I"><table data-cid="Obkdnw"><thead data-cid="DuFnny"><tr data-cid="lkiCSc"><th data-cid="zhrixu">Pista</th><th data-cid="jbT7GC">O que observar</th><th data-cid="gSa-0t">Pergunta de apoio</th></tr></thead><tbody data-cid="NTwC54">
+            <tr data-cid="3lr02T"><td data-cid="mIWTY3">Seca</td><td data-cid="qdS31W">repuxamento, aspereza, descamação</td><td data-cid="kZCE4_">“A pele fica desconfortável depois da limpeza?”</td></tr>
+            <tr data-cid="R1UlmY"><td data-cid="GqDtl7">Mista</td><td data-cid="8asBGG">brilho na zona T e laterais mais secas</td><td data-cid="Nrg7lE">“As necessidades mudam de uma região para outra?”</td></tr>
+            <tr data-cid="gUse3l"><td data-cid="HASJi8">Oleosa</td><td data-cid="UAFuzn">brilho, poros aparentes, sensação de excesso</td><td data-cid="lhIgKq">“O brilho aparece logo ou ao longo do dia?”</td></tr>
+            <tr data-cid="WSEN1X"><td data-cid="BLeEYp">Sensível</td><td data-cid="GTS16M">ardência, vermelhidão, coceira, desconforto</td><td data-cid="kwl87F">“Algum produto provoca ardor ou reação?”</td></tr>
+          </tbody></table></div>
+          <div class="box soft-orange" data-cid="cqOwr3"><strong data-cid="ZIJw85">Pergunta de abertura:</strong> “O que mais incomoda na sua pele hoje?”</div>
+        </section>
+
+        <section id="ativos" class="section" data-cid="8uzLM0">
+          <div class="section-head" data-cid="bUd4dz"><div data-cid="acSonu"><div class="num" data-cid="JRxiSt">05 · Ativos</div><h2 data-cid="BYjJEQ">Propósito antes de promessa</h2></div><a class="back" href="#topo" data-cid="-RTwW-">voltar ao topo</a></div>
+          <p data-cid="LkLt44">Explique cada ativo em quatro pontos: para que serve, para qual necessidade pode ser interessante, como começar e o que exige atenção.</p>
+          <figure data-cid="kfR9dG"><img src="https://us-tiangong-data.oss-accelerate.aliyuncs.com/skycode/video/2026-08-26/2092586151278473216.jpg" alt="Infográfico com finalidades de ácidos usados em cuidados com a pele" data-cid="8oSkP4"><figcaption data-cid="dPWXBM">Imagem de apoio enviada para explicar finalidades de ácidos em linguagem visual.</figcaption></figure>
+          <div class="grid-3" data-cid="vMg94l">
+            <div class="box" data-cid="dsdT9N"><h3 data-cid="pjg_3n">Hialurônico</h3><p data-cid="0vkZnS">Hidratação e conforto. Pode ser um ponto de partida simples.</p><span class="pill" data-cid="TFtKkf">hidratarconforto</span></div>
+            <div class="box" data-cid="WeDGW9"><h3 data-cid="1o3z4F">Salicílico</h3><p data-cid="S7rhbn">Cravos e oleosidade. Avalie tolerância e ressecamento.</p><span class="pill" data-cid="4GqQX1">porosoleosidade</span></div>
+            <div class="box" data-cid="StGEGB"><h3 data-cid="SxCnjW">Glicólico</h3><p data-cid="d8-O0o">Textura e renovação. Pode irritar conforme concentração e frequência.</p><span class="pill" data-cid="iFjy0n">texturarenovação</span></div>
+            <div class="box" data-cid="5SdByJ"><h3 data-cid="3YemCt">Niacinamida</h3><p data-cid="1-lG1z">Equilíbrio e suporte de rotina. Ajuda a começar de forma progressiva.</p><span class="pill" data-cid="xmISKF">equilíbrio</span></div>
+            <div class="box" data-cid="b9LIV9"><h3 data-cid="7cNexq">Ácido lático</h3><p data-cid="PC5ONf">Suavidade e luminosidade. Observe a resposta da pele sensível.</p><span class="pill" data-cid="ACT7G8">suavidade</span></div>
+            <div class="box soft-red" data-cid="nGp10E"><h3 data-cid="1Qi8Ac">Ácido retinoico</h3><p data-cid="ewlx1Y">Exige avaliação e orientação profissional específica; não é uma indicação livre de balcão.</p><span class="pill" data-cid="-kyPHn">atenção</span></div>
+          </div>
+          <p class="quote" data-cid="i376i6">Ardência intensa não é sinal de eficácia. Siga rótulo, advertências e modo de uso.</p>
+        </section>
+
+        <section id="protecao" class="section" data-cid="i1-sD7">
+          <div class="section-head" data-cid="UB6rh7"><div data-cid="mPYfI0"><div class="num" data-cid="kWlQlb">06 · Proteção</div><h2 data-cid="kiKzft">Proteção solar sem complicar</h2></div><a class="back" href="#topo" data-cid="ZoEgHL">voltar ao topo</a></div>
+          <div class="grid-3" data-cid="z9hopT">
+            <div class="box soft-green" data-cid="16OHg2"><h3 data-cid="L6dJWt">Quantidade</h3><p data-cid="fchEWF">Oriente a quantidade indicada no rótulo e a cobertura uniforme.</p></div>
+            <div class="box soft-orange" data-cid="g0SUzb"><h3 data-cid="Mli_bJ">Reaplicação</h3><p data-cid="mBTerJ">Explique que suor, água e atrito podem exigir nova aplicação.</p></div>
+            <div class="box soft-sand" data-cid="O89yQ6"><h3 data-cid="szhLfp">Expectativa</h3><p data-cid="zHwKuX">FPS não representa uma quantidade fixa de horas de proteção.</p></div>
+          </div>
+          <div class="sk-doc-native-table-frame" data-scroll-left-active="false" data-scroll-right-active="false" data-scrolling="false" data-cid="C4gWoF"><table data-cid="aroXz4"><thead data-cid="GYnlp8"><tr data-cid="GQ01bz"><th data-cid="m-mfHU">Conceito</th><th data-cid="d-4J5Q">Explicação simples</th></tr></thead><tbody data-cid="YthQLC">
+            <tr data-cid="e7yjOm"><td data-cid="Ukn6j-">UVB</td><td data-cid="A4o4Fm">Relaciona-se principalmente a vermelhidão e queimaduras.</td></tr>
+            <tr data-cid="vNWsKk"><td data-cid="lTPR1B">UVA</td><td data-cid="CYqiK0">Relaciona-se ao fotoenvelhecimento e à pigmentação.</td></tr>
+            <tr data-cid="1I6f0I"><td data-cid="7hWLpZ">Produto com cor</td><td data-cid="aV0XcZ">A proteção depende da formulação e da aplicação adequada.</td></tr>
+            <tr data-cid="424Z6l"><td data-cid="otH6Q_">Maquiagem com FPS</td><td data-cid="UuOGwM">Não substitui automaticamente o protetor solar.</td></tr>
+          </tbody></table></div>
+          <div class="box soft-orange" data-cid="pzmIFv"><strong data-cid="T1S16A">Mensagem de balcão:</strong> “A proteção depende da quantidade, da uniformidade e da reaplicação.”</div>
+        </section>
+
+        <section id="atendimento" class="section" data-cid="FznkTY">
+          <div class="section-head" data-cid="xnqo8G"><div data-cid="LHDZoo"><div class="num" data-cid="NwowuZ">07 · Conversa</div><h2 data-cid="kPd4Ch">Atendimento consultivo em cinco passos</h2></div><a class="back" href="#topo" data-cid="wCbM3N">voltar ao topo</a></div>
+          <div class="grid-5" data-cid="14ZqIK">
+            <div class="box step" data-cid="jNSJtX"><div class="step-number" data-cid="MUSrah">1</div><h4 data-cid="5VL3nq">Conectar</h4><p data-cid="RTX2Lp">Acolher sem julgamento.</p></div>
+            <div class="box step" data-cid="oK4hNc"><div class="step-number" data-cid="mDgzgO">2</div><h4 data-cid="E8XSxN">Consultar</h4><p data-cid="RAg_bw">Entender queixa, rotina e preferência.</p></div>
+            <div class="box step" data-cid="S6SMiy"><div class="step-number" data-cid="yGGdMO">3</div><h4 data-cid="ik9AmP">Priorizar</h4><p data-cid="qnUYcW">Escolher uma solução viável.</p></div>
+            <div class="box step" data-cid="eTGYFF"><div class="step-number" data-cid="JkObW-">4</div><h4 data-cid="V09dzv">Validar</h4><p data-cid="VgVsLl">Confirmar se ficou claro e possível.</p></div>
+            <div class="box step" data-cid="zPwUV1"><div class="step-number" data-cid="0kfdoT">5</div><h4 data-cid="6zNYnY">Encaminhar</h4><p data-cid="p7zh05">Proteger a jornada quando necessário.</p></div>
+          </div>
+          <h3 style="margin-top:18px" data-cid="qB_47H">Roteiro de 60 segundos</h3>
+          <ol data-cid="PFN264"><li data-cid="ssXSdc">“O que você gostaria de melhorar?”</li><li data-cid="fjaqSX">“O que já usa hoje?”</li><li data-cid="WS7fkx">“Sua pele arde, coça ou descama?”</li><li data-cid="oJ--Gy">“Qual textura você prefere?”</li><li data-cid="9ZVM5s">“Vamos começar pelo essencial e observar a resposta.”</li></ol>
+        </section>
+
+        <section id="sensorial" class="section" data-cid="y8_uF-">
+          <div class="section-head" data-cid="7YmLj-"><div data-cid="Dcn2WU"><div class="num" data-cid="Ds5_11">08 · Experiência</div><h2 data-cid="m1nsWg">Teste sensorial com responsabilidade</h2></div><a class="back" href="#topo" data-cid="z1cfgn">voltar ao topo</a></div>
+          <div class="do-dont" data-cid="jAQ9jJ">
+            <div class="box soft-green" data-cid="6Sd6yV"><h3 data-cid="qHkZb6">Faça</h3><ul data-cid="h3eWlj"><li data-cid="FGk1l5">use espátula ou aplicador descartável;</li><li data-cid="mLLO0t">higienize a área;</li><li data-cid="WohTo6">observe textura e acabamento;</li><li data-cid="HE5JDG">respeite a privacidade;</li><li data-cid="H5D7eH">explique que o teste não prevê toda a reação da pele.</li></ul></div>
+            <div class="box soft-red" data-cid="eqzB-i"><h3 data-cid="imE-w3">Evite</h3><ul data-cid="5GsXpZ"><li data-cid="B7lnVw">aplicar sobre pele lesionada;</li><li data-cid="oyvZHA">compartilhar aplicadores;</li><li data-cid="lF2XAo">tratar sensorial como diagnóstico;</li><li data-cid="eWKSon">prometer adaptação ou resultado;</li><li data-cid="betJ_m">insistir diante de desconforto.</li></ul></div>
+          </div>
+        </section>
+
+        <section id="mix" class="section" data-cid="UEkKBD">
+          <div class="section-head" data-cid="6XDneL"><div data-cid="lXk49z"><div class="num" data-cid="_3WD1-">09 · Gestão da categoria</div><h2 data-cid="1yARzL">Mix e exposição que ajudam a decidir</h2></div><a class="back" href="#topo" data-cid="XcgXLI">voltar ao topo</a></div>
+          <p data-cid="cut1Fw">A exposição deve reduzir dúvidas. Organize a leitura da categoria por necessidade e por jornada, sem transformar a gôndola em um excesso de informação.</p>
+          <div class="grid-4" data-cid="gpIBQf">
+            <div class="box soft-green" data-cid="nAtvjy"><h3 data-cid="T5eLFb">Limpar</h3><p data-cid="97Ox9b">Primeiro passo e porta de entrada.</p></div>
+            <div class="box soft-orange" data-cid="mr8OMY"><h3 data-cid="1E5nWK">Hidratar</h3><p data-cid="TYWJSv">Conforto, barreira e aderência à rotina.</p></div>
+            <div class="box soft-sand" data-cid="cfr3Kk"><h3 data-cid="TgfBwx">Tratar</h3><p data-cid="h4t5N9">Necessidades específicas e progressivas.</p></div>
+            <div class="box soft-green" data-cid="xuOtOP"><h3 data-cid="5Kzmok">Proteger</h3><p data-cid="_8EIq7">Uso diário e continuidade do cuidado.</p></div>
+          </div>
+          <div class="sk-doc-native-table-frame" data-scroll-left-active="false" data-scroll-right-active="false" data-scrolling="false" data-cid="3kBe7O"><table data-cid="GVeEtv"><thead data-cid="oYhFfm"><tr data-cid="v3Ujv_"><th data-cid="LSKgyR">Prática</th><th data-cid="1ROLRr">Efeito esperado</th><th data-cid="rKbKlw">Como revisar</th></tr></thead><tbody data-cid="ci-jLE">
+            <tr data-cid="RUrwsU"><td data-cid="sl6vXM">Preços visíveis</td><td data-cid="lXo5SO">menos insegurança</td><td data-cid="xz1cFt">faça uma leitura a dois metros de distância</td></tr>
+            <tr data-cid="vXQQud"><td data-cid="7wx_sZ">Complementares próximos</td><td data-cid="AUvnMq">jornada mais fácil</td><td data-cid="5smtJf">observe se a combinação é lógica</td></tr>
+            <tr data-cid="XzifT-"><td data-cid="84AOba">Faciais, corporais, capilares e infantis separados</td><td data-cid="SBDKXR">busca mais rápida</td><td data-cid="ngODen">confira se o cliente entende a divisão</td></tr>
+            <tr data-cid="KCdL8j"><td data-cid="rq-05O">Comunicação curta</td><td data-cid="DOh30-">menos ruído</td><td data-cid="kKPUAM">retire cartazes que competem entre si</td></tr>
+          </tbody></table></div>
+        </section>
+
+        <section id="indicadores" class="section" data-cid="JaZVxD">
+          <div class="section-head" data-cid="sAW7eo"><div data-cid="t-qjNX"><div class="num" data-cid="vmiYcC">10 · Acompanhamento</div><h2 data-cid="S2z5vv">Indicadores simples para a rotina</h2></div><a class="back" href="#topo" data-cid="53KwkZ">voltar ao topo</a></div>
+          <p data-cid="z3LAQb">Não é preciso começar com um painel complexo. Escolha poucos sinais que mostrem se a categoria está ficando mais clara, disponível e recomendável.</p>
+          <div class="grid-3" data-cid="S2uKT6">
+            <div class="box" data-cid="XTqvSY"><h3 data-cid="2YmxI0">Disponibilidade</h3><p data-cid="r8UHjf">Os itens básicos estão presentes e fáceis de encontrar?</p></div>
+            <div class="box" data-cid="-kJO91"><h3 data-cid="KVjK6Y">Conversão de oportunidade</h3><p data-cid="kHbnPg">A equipe consegue transformar dúvida em uma recomendação objetiva?</p></div>
+            <div class="box" data-cid="Y7CPnt"><h3 data-cid="A_IIj0">Recorrência</h3><p data-cid="y1kd7v">O cliente volta para repor ou ajustar a rotina?</p></div>
+            <div class="box" data-cid="y_tDMX"><h3 data-cid="vxWVOz">Treinamento</h3><p data-cid="Kiox5S">As dúvidas recorrentes viram pauta de capacitação?</p></div>
+            <div class="box" data-cid="sIy04h"><h3 data-cid="ZPnS2d">Exposição</h3><p data-cid="MNq8ts">A organização da gôndola facilita a jornada?</p></div>
+            <div class="box" data-cid="E935_s"><h3 data-cid="gWv3sv">Segurança</h3><p data-cid="zg_pF4">A equipe sabe quando orientar e quando encaminhar?</p></div>
+          </div>
+          <div class="box soft-orange" data-cid="9SVc0X"><strong data-cid="u-ZCZZ">Reunião de 15 minutos:</strong> escolha um indicador, um caso real e uma melhoria para testar naquela semana.</div>
+        </section>
+
+        <section id="seguranca" class="section" data-cid="n0QZlz">
+          <div class="section-head" data-cid="NYUD5b"><div data-cid="82JgrX"><div class="num" data-cid="BhABap">11 · Segurança</div><h2 data-cid="8-270d">Limites e encaminhamento profissional</h2></div><a class="back" href="#topo" data-cid="0_PECZ">voltar ao topo</a></div>
+          <div class="grid-2" data-cid="IJASpo">
+            <div class="box soft-green" data-cid="0g7Ai3"><h3 data-cid="aBCNV_">Pode orientar</h3><ul data-cid="amhhxE"><li data-cid="fnSu1B">rotina básica;</li><li data-cid="_otKxq">finalidade e uso do produto;</li><li data-cid="ozzNtn">textura e preferência;</li><li data-cid="791n48">observação da resposta;</li><li data-cid="9jDQA9">organização da categoria.</li></ul></div>
+            <div class="box soft-red" data-cid="Um3OET"><h3 data-cid="JhdjSq">Encaminhe</h3><ul data-cid="HLxDlf"><li data-cid="M9Wfnx">dor ou inflamação intensa;</li><li data-cid="L4pZFC">feridas, sangramento ou piora rápida;</li><li data-cid="fDVhK2">manchas novas ou em mudança;</li><li data-cid="z625ce">reação importante ou persistente;</li><li data-cid="ZyWVNA">dúvidas clínicas, gestação, lactação ou medicamentos.</li></ul></div>
+          </div>
+          <p class="quote" data-cid="526l43">“Posso ajudar com informações gerais, mas essa situação precisa ser avaliada por um profissional de saúde.”</p>
+        </section>
+
+        <section id="checklists" class="section" data-cid="sqLTXo">
+          <div class="section-head" data-cid="5KgDKw"><div data-cid="p1889E"><div class="num" data-cid="hNGcQW">12 · Ferramentas</div><h2 data-cid="PBQbQD">Checklists de bolso</h2></div><a class="back" href="#topo" data-cid="bGT6h1">voltar ao topo</a></div>
+          <div class="grid-2" data-cid="mRWkrH">
+            <div class="box" data-cid="GkjX2a"><h3 data-cid="7Q85DH">Antes de abrir a conversa</h3><ul class="checklist" data-cid="MUCext"><li data-cid="O3kTiH">Conheço o foco da categoria hoje.</li><li data-cid="KnJFOU">Sei onde estão os itens básicos.</li><li data-cid="Fdrg3w">Tenho uma pergunta de abertura.</li><li data-cid="H3RSzo">Consigo explicar a ordem de uso.</li><li data-cid="uf3L0q">Sei quais situações pedem encaminhamento.</li></ul></div>
+            <div class="box" data-cid="hGT_1M"><h3 data-cid="xx2WIq">Antes de finalizar</h3><ul class="checklist" data-cid="COREhT"><li data-cid="kqLl85">Entendi a queixa principal.</li><li data-cid="oA12uT">Considerei rotina, textura e orçamento.</li><li data-cid="i7moLM">Evitei excesso de produtos.</li><li data-cid="I8j-n-">Expliquei o benefício principal.</li><li data-cid="ecrrJy">Confirmei o que observar.</li></ul></div>
+          </div>
+        </section>
+
+        <section id="treinamento" class="section" data-cid="4kKAN_">
+          <div class="section-head" data-cid="UUh_w6"><div data-cid="dUqJRb"><div class="num" data-cid="W6OJhk">13 · Desenvolvimento</div><h2 data-cid="GXDPn8">Treinamento que vira prática</h2></div><a class="back" href="#topo" data-cid="fG-R18">voltar ao topo</a></div>
+          <div class="grid-3" data-cid="jGxW0t">
+            <div class="box soft-green" data-cid="ledzJ0"><h3 data-cid="MdD5BH">1. Escolha um tema</h3><p data-cid="5zJMko">Tipo de pele, ativo, proteção solar, mix ou encaminhamento.</p></div>
+            <div class="box soft-orange" data-cid="R8uzUR"><h3 data-cid="vB9NZb">2. Simule um caso</h3><p data-cid="z-3-Sm">Inclua queixa, rotina, preferência, orçamento e restrições.</p></div>
+            <div class="box soft-sand" data-cid="9eyOkp"><h3 data-cid="xvJmT6">3. Dê retorno</h3><p data-cid="CEFjP2">Comente clareza, prioridade, segurança e viabilidade.</p></div>
+          </div>
+          <h3 style="margin-top:18px" data-cid="5nRnYI">Agenda sugerida de 30 minutos</h3>
+          <div class="sk-doc-native-table-frame" data-scroll-left-active="false" data-scroll-right-active="false" data-scrolling="false" data-cid="UDmlpC"><table data-cid="h7c7Dx"><thead data-cid="6nBAGb"><tr data-cid="WNOejk"><th data-cid="6YEYuA">Tempo</th><th data-cid="_DiLcg">Atividade</th></tr></thead><tbody data-cid="m7Fben">
+            <tr data-cid="0OnZuc"><td data-cid="7-BSNF">5 min</td><td data-cid="1ahdvX">Relembrar a rotina essencial.</td></tr>
+            <tr data-cid="ov2xfJ"><td data-cid="Hj89Bo">10 min</td><td data-cid="AMuwkJ">Apresentar um ativo ou necessidade.</td></tr>
+            <tr data-cid="oNswSR"><td data-cid="AtgTc2">10 min</td><td data-cid="jBp98A">Simular dois atendimentos.</td></tr>
+            <tr data-cid="IbBmIF"><td data-cid="YW7wK-">5 min</td><td data-cid="mRqGcM">Escolher uma melhoria para a semana.</td></tr>
+          </tbody></table></div>
+          <p class="quote" data-cid="pS115_">Ouvir antes de indicar. Explicar sem complicar. Começar pelo possível.</p>
+        </section>
+
+        <section class="section soft-sand" data-cid="9NHKmI">
+          <div class="num" data-cid="1UrhJS">Fechamento</div>
+          <h2 data-cid="VHkxqS">Conhecimento que acolhe</h2>
+          <p data-cid="oClYZn">Uma categoria bem trabalhada combina disponibilidade, exposição clara, equipe preparada e limites bem reconhecidos. O resultado não está em falar mais: está em ajudar melhor.</p>
+          <p class="mini-note" data-cid="b5B1d8">Material educativo para apoio à rotina de farmácias. As informações não substituem avaliação, diagnóstico ou acompanhamento de profissionais de saúde.</p>
+        </section>
+      </main>
+    </div>
+    <footer class="footer" data-cid="_kOwxU">
+      Manual digital de boas práticas em dermocosméticos · linguagem sem marcas 
+      <br data-cid="efH7aP">
+      <span data-cid="zk47h4">Uso restrito a lojas, proprietários e funcionários ligados às Farmácias Associadas.</span>
+    </footer>
+  </div>
+
+
+
+
+  <script>
+    (() => {document.addEventListener('click',(event)=>{const link=event.target.closest('.partner-card');if(link&&link.getAttribute('href')==='#')event.preventDefault();});})();
+  </script>
+
+
+<script id="df-admin-script">
+(function(){
+  'use strict';
+  const DB_NAME='dermofriends_admin_db', DB_VERSION=1, STORE_CONTENT='content', STORE_IMAGES='images';
+  // V1.21: controla compatibilidade do conteúdo persistido sem apagar a biblioteca de imagens.
+  // Aumente PERSISTENCE_SCHEMA somente quando uma nova versão alterar a estrutura/base do site.
+  const SITE_VERSION='1.22', PERSISTENCE_SCHEMA=3;
+  const compatibleRecord=rec=>!!rec&&rec.persistenceSchema===PERSISTENCE_SCHEMA;
+  const state={db:null,dirty:false,currentImage:null,pendingImage:null,librarySelectMode:false,baseSectionIds:[],draggedSection:null,selectedSections:new Set(),currentPartner:null,partnerPendingImage:null,partnerLibraryMode:false,banners:[],bannerIndex:0,bannerLibraryMode:false,partnerTimer:null,draggedPartner:null};
+  const ADMIN_SESSION_KEY='df-admin-authenticated';
+  const ADMIN_CREDENTIAL_HASH='02ec7f947d4e164eeab9deca167ccbcd8f967e7f3aeead041969e912aa231ce5';
+  const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+  const adminSessionActive=()=>sessionStorage.getItem(ADMIN_SESSION_KEY)==='1';
+  async function sha256(value){const data=new TextEncoder().encode(value);const digest=await crypto.subtle.digest('SHA-256',data);return Array.from(new Uint8Array(digest)).map(b=>b.toString(16).padStart(2,'0')).join('');}
+  function resetAdminLogin(){const form=$('#dfAdminLoginForm');if(form)form.reset();const err=$('#dfAdminLoginError');if(err)err.classList.remove('is-visible');}
+  function openAdminLogin(){resetAdminLogin();openModal('dfAdminLoginModal');setTimeout(()=>{$('#dfAdminUser')?.focus();},0);}
+  async function validateAdminLogin(){const user=$('#dfAdminUser')?.value.trim()||'';const password=$('#dfAdminPassword')?.value||'';const err=$('#dfAdminLoginError');try{const digest=await sha256(user+'\n'+password);if(digest===ADMIN_CREDENTIAL_HASH){sessionStorage.setItem(ADMIN_SESSION_KEY,'1');closeModal('dfAdminLoginModal');resetAdminLogin();setAdmin(true);return true;}}catch(e){console.error('Falha na autenticação administrativa:',e);}if(err)err.classList.add('is-visible');$('#dfAdminPassword')?.select();return false;}
+  function logoutAdmin(){sessionStorage.removeItem(ADMIN_SESSION_KEY);setAdmin(false);resetAdminLogin();}
+
+  const adminMode=()=>document.body.classList.contains('df-admin-mode');
+  const status=(msg)=>{const el=$('#dfSaveStatus'); if(el) el.textContent=msg;};
+  function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,DB_VERSION);req.onupgradeneeded=e=>{const db=e.target.result;if(!db.objectStoreNames.contains(STORE_CONTENT)) db.createObjectStore(STORE_CONTENT,{keyPath:'id'});if(!db.objectStoreNames.contains(STORE_IMAGES)) db.createObjectStore(STORE_IMAGES,{keyPath:'id'});};req.onsuccess=()=>{state.db=req.result;resolve(req.result)};req.onerror=()=>reject(req.error);});}
+  function tx(store,mode='readonly'){return state.db.transaction(store,mode).objectStore(store)}
+  function put(store,val){return new Promise((res,rej)=>{const r=tx(store,'readwrite').put(val);r.onsuccess=()=>res(val);r.onerror=()=>rej(r.error)})}
+  function get(store,id){return new Promise((res,rej)=>{const r=tx(store).get(id);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+  function getAll(store){return new Promise((res,rej)=>{const r=tx(store).getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>rej(r.error)})}
+  function del(store,id){return new Promise((res,rej)=>{const r=tx(store,'readwrite').delete(id);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
+  const dataUrlFromBlob=blob=>new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.onerror=rej;fr.readAsDataURL(blob)});
+  function stableId(el,prefix){if(el.dataset.dfKey)return el.dataset.dfKey;let base=el.getAttribute('data-cid')||el.id||'';if(!base){const all=$$(prefix==='img'?'img':'h1,h2,h3,h4,p,li,td,th,.eyebrow,.num,.partners-kicker,.partners-copy,.tag');base=String(all.indexOf(el));}const id='df-'+prefix+'-'+String(base).replace(/[^a-zA-Z0-9_-]/g,'-');el.dataset.dfKey=id;return id;}
+  function isTextLeaf(el){if(el.closest('#dfAdminToolbar,.df-admin-modal,.dermo-intro')) return false;if(el.matches('script,style,noscript,button,input,textarea,select,option,a.back')) return false;if(el.querySelector('img,svg,video,iframe,input,button')) return false;return (el.textContent||'').trim().length>0;}
+  function registerTextFields(){const sel='h1,h2,h3,h4,p,li,td,th,.eyebrow,.num,.partners-kicker,.partners-copy,.tag';$$(sel).filter(isTextLeaf).forEach(el=>{stableId(el,'txt');el.dataset.dfEditable='text';});}
+  function registerSections(){$$('section,.partners,.hero').filter(el=>!el.closest('.df-admin-modal,.dermo-intro')&&!el.matches('.partners')).forEach(el=>{
+    const isManualSection=el.matches('main > section.section');
+    if(!el.classList.contains('df-section-admin')){
+      el.classList.add('df-section-admin');
+      const ctl=document.createElement('div');
+      ctl.className='df-section-control';
+      if(isManualSection){
+        ctl.innerHTML='<label class="df-section-select-wrap" title="Selecionar divisão"><input class="df-section-select" type="checkbox" aria-label="Selecionar divisão"> Selecionar</label><button type="button" class="df-drag-handle" draggable="true" title="Arraste para mover">⠿ Arrastar</button><button type="button" class="df-edit-section">✎ Editar seção</button><button type="button" class="df-delete-section">🗑 Excluir</button>';
+        const checkbox=ctl.querySelector('.df-section-select');
+        checkbox.addEventListener('change',()=>setSectionSelected(el,checkbox.checked));
+        const dragHandle=ctl.querySelector('.df-drag-handle');
+        dragHandle.addEventListener('dragstart',e=>startSectionDrag(e,el));
+        dragHandle.addEventListener('dragend',finishSectionDrag);
+        ctl.querySelector('.df-delete-section').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();deleteSections([el]);});
+        ctl.querySelector('.df-edit-section').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();focusFirstEditable(el);});
+      }else{
+        ctl.innerHTML='<button type="button" class="df-edit-section">✎ Editar seção</button>';
+        ctl.querySelector('.df-edit-section').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();focusFirstEditable(el);});
+      }
+      el.appendChild(ctl);
+    }
+    if(isManualSection && !el.dataset.dfDragReady){
+      el.dataset.dfDragReady='true';
+      el.addEventListener('dragover',handleSectionDragOver);
+      el.addEventListener('drop',handleSectionDrop);
+      el.addEventListener('dragleave',e=>{if(e.currentTarget===e.target||!e.currentTarget.contains(e.relatedTarget)){e.currentTarget.classList.remove('df-drop-before','df-drop-after');}});
+    }
+  });updateBulkDeleteButton();}
+  function focusFirstEditable(el){const first=el.querySelector('[data-df-editable="text"]');if(first){first.focus();first.scrollIntoView({behavior:'smooth',block:'center'});}}
+  function setSectionSelected(section,selected){if(!section)return;if(selected){state.selectedSections.add(section.id);section.classList.add('df-selected');}else{state.selectedSections.delete(section.id);section.classList.remove('df-selected');}updateBulkDeleteButton();}
+  function updateBulkDeleteButton(){const b=$('#dfDeleteSelected');if(!b)return;const count=state.selectedSections.size;b.textContent='Excluir selecionadas ('+count+')';b.disabled=count===0;b.classList.toggle('is-active',count>0);}
+  function clearSectionSelection(){state.selectedSections.clear();getManualSections().forEach(section=>{section.classList.remove('df-selected');const cb=section.querySelector('.df-section-select');if(cb)cb.checked=false;});updateBulkDeleteButton();}
+  function deleteSections(sections){const unique=Array.from(new Set((sections||[]).filter(Boolean)));if(!unique.length)return;const msg=unique.length===1?'Excluir esta divisão?':'Excluir as '+unique.length+' divisões selecionadas?';if(!confirm(msg))return;unique.forEach(section=>{state.selectedSections.delete(section.id);section.remove();});clearSectionSelection();syncToc();observeSectionTitles();markDirty();}
+  function startSectionDrag(e,section){if(!adminMode()){e.preventDefault();return;}state.draggedSection=section;section.classList.add('df-dragging');if(e.dataTransfer){e.dataTransfer.effectAllowed='move';try{e.dataTransfer.setData('text/plain',section.id);}catch(_){}}}
+  function clearDropMarkers(){getManualSections().forEach(s=>s.classList.remove('df-drop-before','df-drop-after'));}
+  function handleSectionDragOver(e){if(!adminMode()||!state.draggedSection||state.draggedSection===e.currentTarget)return;e.preventDefault();const rect=e.currentTarget.getBoundingClientRect();const before=e.clientY<rect.top+rect.height/2;clearDropMarkers();e.currentTarget.classList.add(before?'df-drop-before':'df-drop-after');if(e.dataTransfer)e.dataTransfer.dropEffect='move';}
+  function handleSectionDrop(e){if(!adminMode()||!state.draggedSection||state.draggedSection===e.currentTarget)return;e.preventDefault();const target=e.currentTarget,dragged=state.draggedSection;const rect=target.getBoundingClientRect();const before=e.clientY<rect.top+rect.height/2;target.parentNode.insertBefore(dragged,before?target:target.nextSibling);clearDropMarkers();syncToc();observeSectionTitles();markDirty();}
+  function finishSectionDrag(){if(state.draggedSection)state.draggedSection.classList.remove('df-dragging');state.draggedSection=null;clearDropMarkers();}
+  function registerImages(){$$('img').filter(img=>!img.closest('.df-admin-modal,.dermo-intro,.partner-card')).forEach(img=>{stableId(img,'img');const host=img.parentElement;if(!host||host.classList.contains('df-image-edit-host'))return;host.classList.add('df-image-edit-host');const b=document.createElement('button');b.className='df-edit-control';b.type='button';b.textContent='✎ Imagem';b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();openImageEditor(img);});host.appendChild(b);});}
+  function partnerKey(card,index){
+    if(card.dataset.dfPartnerKey)return card.dataset.dfPartnerKey;
+    card.dataset.dfPartnerKey='df-partner-card-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,9);
+    return card.dataset.dfPartnerKey;
+  }
+  function partnerGrid(){return $('#dfPartnersGrid')||$('.partners-grid');}
+  function partnerCards(){const g=partnerGrid();return g?Array.from(g.querySelectorAll(':scope > .partner-card')):[];}
+  function makePartnerCard(data={}){
+    const card=document.createElement('a');card.className='partner-card';card.href=data.href||'#';
+    card.dataset.dfPartnerKey=data.id||('df-partner-card-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,9));
+    card.dataset.dfPartnerName=data.name||'';card.dataset.dfPartnerScale=String(data.scale||100);card.dataset.dfSourceHref=data.sourceHref||'#';
+    if(data.target)card.target=data.target;if(data.rel)card.rel=data.rel;card.setAttribute('aria-label',data.ariaLabel||'Abrir site do parceiro');
+    const img=document.createElement('img');img.alt=data.alt||data.name||'Parceiro';img.src=data.src||'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300"><rect width="100%" height="100%" fill="white"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="34" fill="#8b8379">Nova marca</text></svg>');
+    if(data.imageId)img.dataset.dfImageId=data.imageId;img.style.transform='scale('+((data.scale||100)/100)+')';card.appendChild(img);return card;
+  }
+  function registerPartners(){partnerCards().forEach((card,index)=>{partnerKey(card,index);if(!card.dataset.dfSourceHref)card.dataset.dfSourceHref=card.getAttribute('href')||'#';const img=card.querySelector('img');if(!img)return;if(!card.querySelector('.df-partner-edit')){const b=document.createElement('button');b.type='button';b.className='df-partner-edit';b.textContent='✎ Editar parceiro';b.setAttribute('aria-label','Editar parceiro');b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();openPartnerEditor(card);});card.appendChild(b);}if(!card.querySelector('.df-partner-drag-handle')){const h=document.createElement('button');h.type='button';h.className='df-partner-drag-handle';h.textContent='⠿';h.title='Arraste para ordenar';h.draggable=true;h.addEventListener('dragstart',e=>{if(!adminMode()){e.preventDefault();return;}state.draggedPartner=card;card.classList.add('df-partner-dragging');e.dataTransfer.effectAllowed='move';});h.addEventListener('dragend',()=>{card.classList.remove('df-partner-dragging');state.draggedPartner=null;markDirty();setupPartnerCarousel();});card.appendChild(h);card.addEventListener('dragover',e=>{if(!adminMode()||!state.draggedPartner||state.draggedPartner===card)return;e.preventDefault();const r=card.getBoundingClientRect();card.parentNode.insertBefore(state.draggedPartner,e.clientX<r.left+r.width/2?card:card.nextSibling);});}if(!card.querySelector('.df-partner-delete')){const d=document.createElement('button');d.type='button';d.className='df-partner-delete';d.textContent='×';d.title='Excluir parceiro';d.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();if(confirm('Excluir este parceiro?')){card.remove();markDirty();setupPartnerCarousel();}});card.appendChild(d);}});setupPartnerCarousel();}
+  function normalizePartnerUrl(value){const v=(value||'').trim();if(!v)return '#';if(/^https?:\/\//i.test(v))return v;return 'https://'+v.replace(/^\/+/, '');}
+  function openPartnerEditor(card){const img=card&&card.querySelector('img');if(!card||!img)return;state.currentPartner=card;state.partnerPendingImage=null;state.partnerLibraryMode=false;$('#dfPartnerPreview').src=img.src;const scale=Math.min(150,Math.max(60,parseInt(card.dataset.dfPartnerScale||'100',10)||100));$('#dfPartnerPreview').style.transform='scale('+(scale/100)+')';$('#dfPartnerScale').value=scale;$('#dfPartnerScaleValue').textContent=scale+'%';$('#dfPartnerName').value=card.dataset.dfPartnerName||card.getAttribute('title')||img.alt||'';const href=card.getAttribute('href')||'';$('#dfPartnerLink').value=href==='#'?'':href;$('#dfPartnerNewTab').checked=card.getAttribute('target')==='_blank';$('#dfPartnerAlt').value=img.alt||'';$('#dfPartnerUpload').value='';openModal('dfPartnerEditModal');}
+  async function applyPartner(){const card=state.currentPartner;if(!card)return;const img=card.querySelector('img');if(!img)return;const file=$('#dfPartnerUpload').files[0];if(file){const id='img-'+Date.now()+'-'+Math.random().toString(36).slice(2,9);await put(STORE_IMAGES,{id,name:file.name,type:file.type,size:file.size,createdAt:Date.now(),blob:file});img.src=await dataUrlFromBlob(file);img.dataset.dfImageId=id;}else if(state.partnerPendingImage){img.src=await dataUrlFromBlob(state.partnerPendingImage.blob);img.dataset.dfImageId=state.partnerPendingImage.imageId;}const name=$('#dfPartnerName').value.trim();const alt=$('#dfPartnerAlt').value.trim()||name;const href=normalizePartnerUrl($('#dfPartnerLink').value);const scale=Math.min(150,Math.max(60,parseInt($('#dfPartnerScale').value,10)||100));card.dataset.dfPartnerName=name;card.dataset.dfPartnerScale=String(scale);card.setAttribute('title',name);img.alt=alt;img.style.transform='scale('+(scale/100)+')';card.setAttribute('href',href);card.setAttribute('aria-label',name?'Abrir site da '+name:'Abrir site do parceiro');if($('#dfPartnerNewTab').checked){card.setAttribute('target','_blank');card.setAttribute('rel','noopener noreferrer');}else{card.removeAttribute('target');card.removeAttribute('rel');}markDirty();closeModal('dfPartnerEditModal');state.partnerPendingImage=null;await renderLibrary();}
+  async function partnerData(card){const img=card.querySelector('img');return{id:card.dataset.dfPartnerKey,name:card.dataset.dfPartnerName||card.getAttribute('title')||'',href:card.getAttribute('href')||'#',sourceHref:card.dataset.dfSourceHref||'#',target:card.getAttribute('target')||'',rel:card.getAttribute('rel')||'',ariaLabel:card.getAttribute('aria-label')||'',scale:parseInt(card.dataset.dfPartnerScale||'100',10)||100,alt:img?.alt||'',imageId:img?.dataset.dfImageId||null,src:img?.dataset.dfImageId?null:(img?.getAttribute('src')||'')};}
+  async function savePartners(now){const items=[];for(const card of partnerCards())items.push(await partnerData(card));await put(STORE_CONTENT,{id:'df-partners-v2',type:'partners-v2',items,persistenceSchema:PERSISTENCE_SCHEMA,siteVersion:SITE_VERSION,updatedAt:now});}
+  async function restorePartners(){const rec=await get(STORE_CONTENT,'df-partners-v2');if(compatibleRecord(rec)&&rec.type==='partners-v2'&&Array.isArray(rec.items)){const g=partnerGrid();g.innerHTML='';for(const data of rec.items){if(data.imageId){const im=await get(STORE_IMAGES,data.imageId);if(im&&im.blob)data.src=await dataUrlFromBlob(im.blob);}g.appendChild(makePartnerCard(data));}registerPartners();return;}/* migração: mantém os cards atuais, mas cria IDs neutros permanentes */partnerCards().forEach((card,i)=>{card.dataset.dfPartnerKey='df-partner-card-'+String(i+1).padStart(3,'0');});registerPartners();}
+  function partnerVisibleCount(){return window.innerWidth<=560?1:(window.innerWidth<=900?2:5);}
+  function partnerStepSize(){const g=partnerGrid(),first=partnerCards()[0];if(!g||!first)return 0;const gap=parseFloat(getComputedStyle(g).gap)||18;return first.getBoundingClientRect().width+gap;}
+  function rotatePartnerForward(){const g=partnerGrid();if(!g||adminMode()||g.dataset.dfAnimating==='1')return;const cards=partnerCards();if(cards.length<=partnerVisibleCount())return;const first=cards[0],step=partnerStepSize();if(!first||!step)return;g.dataset.dfAnimating='1';g.scrollTo({left:0,behavior:'auto'});requestAnimationFrame(()=>{g.scrollTo({left:step,behavior:'smooth'});setTimeout(()=>{g.appendChild(first);g.scrollTo({left:0,behavior:'auto'});g.dataset.dfAnimating='0';},650);});}
+  function rotatePartnerBackward(){const g=partnerGrid();if(!g||adminMode()||g.dataset.dfAnimating==='1')return;const cards=partnerCards();if(cards.length<=partnerVisibleCount())return;const last=cards[cards.length-1];if(!last)return;g.dataset.dfAnimating='1';g.insertBefore(last,g.firstElementChild);const step=partnerStepSize();g.scrollTo({left:step,behavior:'auto'});requestAnimationFrame(()=>requestAnimationFrame(()=>{g.scrollTo({left:0,behavior:'smooth'});setTimeout(()=>{g.dataset.dfAnimating='0';},650);}));}
+  function setupPartnerCarousel(){clearInterval(state.partnerTimer);state.partnerTimer=null;const g=partnerGrid();if(!g)return;g.dataset.dfAnimating='0';g.scrollTo({left:0,behavior:'auto'});const cards=partnerCards(),prev=$('#dfPartnerPrev'),next=$('#dfPartnerNext');const needs=cards.length>partnerVisibleCount();if(prev)prev.hidden=!needs;if(next)next.hidden=!needs;if(!needs)return;state.partnerStep=rotatePartnerForward;if(!adminMode())state.partnerTimer=setInterval(rotatePartnerForward,4000);}
+  function partnerPrev(){rotatePartnerBackward();}
+  function partnerNext(){rotatePartnerForward();}
+  function addPartnerCard(){const g=partnerGrid();if(!g)return;const card=makePartnerCard({});g.appendChild(card);registerPartners();markDirty();card.scrollIntoView({behavior:'smooth',block:'nearest',inline:'end'});openPartnerEditor(card);}
+  function addPublicLauncher(){const top=$('.topbar');if(!top||$('.df-public-admin-launch'))return;const b=document.createElement('button');b.type='button';b.className='df-public-admin-launch';b.textContent='Painel administrativo';b.addEventListener('click',()=>{if(adminSessionActive())setAdmin(true);else openAdminLogin();});top.appendChild(b);}
+  function getManualSections(){return $$('main > section.section').filter(section=>section.querySelector('h2'));}
+  function getSectionTitle(section){const title=section&&section.querySelector('h2');return title?((title.textContent||'').trim()||'Sem título'):'Sem título';}
+  let dfTocObserver=null;
+  function setTocActive(sectionId){const toc=$('.toc');if(!toc)return;toc.querySelectorAll('a[data-df-section-link]').forEach(a=>a.classList.toggle('is-active',a.dataset.dfSectionLink===sectionId));}
+  function setupTocActiveObserver(){if(dfTocObserver)dfTocObserver.disconnect();const sections=getManualSections();if(!sections.length)return;dfTocObserver=new IntersectionObserver(entries=>{const visible=entries.filter(entry=>entry.isIntersecting).sort((a,b)=>Math.abs(a.boundingClientRect.top)-Math.abs(b.boundingClientRect.top));if(visible[0])setTocActive(visible[0].target.id);},{root:null,rootMargin:'-18% 0px -68% 0px',threshold:[0,0.01,0.2]});sections.forEach(section=>dfTocObserver.observe(section));const hash=location.hash&&location.hash.slice(1);if(hash&&sections.some(section=>section.id===hash))setTocActive(hash);else setTocActive(sections[0].id);}
+  function syncToc(){const toc=$('.toc');if(!toc)return;const addBtn=toc.querySelector('#dfAddSection');toc.querySelectorAll('a[href^="#"]').forEach(a=>a.remove());getManualSections().forEach(section=>{if(!section.id)return;const a=document.createElement('a');a.href='#'+section.id;a.dataset.dfSectionLink=section.id;a.textContent=getSectionTitle(section);a.addEventListener('click',()=>setTocActive(section.id));if(addBtn)toc.insertBefore(a,addBtn);else toc.appendChild(a);});setupTocActiveObserver();}
+  function syncSectionTitle(section){if(!section||!section.id)return;const toc=$('.toc');if(!toc)return;let link=toc.querySelector('a[data-df-section-link="'+CSS.escape(section.id)+'"]');if(!link){syncToc();link=toc.querySelector('a[data-df-section-link="'+CSS.escape(section.id)+'"]');}if(link)link.textContent=getSectionTitle(section);}
+  let dfTitleObserver=null;
+  function observeSectionTitles(){if(dfTitleObserver)dfTitleObserver.disconnect();dfTitleObserver=new MutationObserver(mutations=>{const touched=new Set();mutations.forEach(m=>{const node=m.type==='characterData'?m.target.parentElement:m.target;const h2=node&&node.nodeType===1?(node.matches('h2')?node:node.closest('h2')):null;const section=h2&&h2.closest('main > section.section');if(section)touched.add(section);});touched.forEach(syncSectionTitle);});getManualSections().forEach(section=>{const h2=section.querySelector('h2');if(h2)dfTitleObserver.observe(h2,{subtree:true,childList:true,characterData:true});});}
+  function addSectionButton(){const toc=$('.toc');if(!toc||$('#dfAddSection'))return;const b=document.createElement('button');b.type='button';b.id='dfAddSection';b.className='df-toc-add-section';b.textContent='+ Adicionar divisão';b.addEventListener('click',()=>{const main=$('main');if(!main)return;const n=getManualSections().length+1;let id='nova-divisao-'+Date.now();while(document.getElementById(id))id+='x';const section=document.createElement('section');section.id=id;section.className='section';section.dataset.dfGenerated='true';section.innerHTML='<div class="section-head"><div><div class="num">'+String(n).padStart(2,'0')+' · Nova divisão</div><h2>Novo título</h2></div><a class="back" href="#topo">voltar ao topo</a></div><p>Digite o conteúdo desta divisão.</p>';main.appendChild(section);const h2=section.querySelector('h2');const num=section.querySelector('.num');const p=section.querySelector('p');if(h2)h2.dataset.dfKey='df-txt-'+id+'-title';if(num)num.dataset.dfKey='df-txt-'+id+'-num';if(p)p.dataset.dfKey='df-txt-'+id+'-body';registerTextFields();registerSections();syncToc();observeSectionTitles();markDirty();if(h2){h2.setAttribute('contenteditable','true');h2.focus();h2.scrollIntoView({behavior:'smooth',block:'center'});}});toc.appendChild(b);}
+  function cleanSectionClone(section){const clone=section.cloneNode(true);clone.querySelectorAll('.df-section-control').forEach(el=>el.remove());clone.querySelectorAll('[contenteditable]').forEach(el=>el.removeAttribute('contenteditable'));clone.classList.remove('df-section-admin','df-selected','df-dragging','df-drop-before','df-drop-after');delete clone.dataset.dfDragReady;return clone;}
+  function serializeGeneratedSections(){return getManualSections().filter(s=>s.dataset.dfGenerated==='true').map(section=>cleanSectionClone(section).outerHTML);}
+  function serializeSectionLayout(){const order=getManualSections().map(s=>s.id);const current=new Set(order);const deleted=state.baseSectionIds.filter(id=>!current.has(id));return{order,deleted};}
+  async function saveGeneratedSections(){await put(STORE_CONTENT,{id:'df-generated-sections',type:'generated-sections',sections:serializeGeneratedSections(),persistenceSchema:PERSISTENCE_SCHEMA,siteVersion:SITE_VERSION,updatedAt:Date.now()});}
+  async function saveSectionLayout(){const layout=serializeSectionLayout();await put(STORE_CONTENT,{id:'df-section-layout',type:'section-layout',order:layout.order,deleted:layout.deleted,persistenceSchema:PERSISTENCE_SCHEMA,siteVersion:SITE_VERSION,updatedAt:Date.now()});}
+  async function restoreGeneratedSections(){const rec=await get(STORE_CONTENT,'df-generated-sections');if(!compatibleRecord(rec)||rec.type!=='generated-sections'||!Array.isArray(rec.sections)||!rec.sections.length)return;const main=$('main');if(!main)return;rec.sections.forEach(html=>{const tpl=document.createElement('template');tpl.innerHTML=html.trim();const section=tpl.content.firstElementChild;if(section&&!document.getElementById(section.id))main.appendChild(section);});}
+  async function restoreSectionLayout(){const rec=await get(STORE_CONTENT,'df-section-layout');if(!compatibleRecord(rec)||rec.type!=='section-layout')return;const main=$('main');if(!main)return;const deleted=new Set(Array.isArray(rec.deleted)?rec.deleted:[]);deleted.forEach(id=>{const el=document.getElementById(id);if(el&&el.matches('main > section.section'))el.remove();});const order=Array.isArray(rec.order)?rec.order:[];order.forEach(id=>{const el=document.getElementById(id);if(el&&el.parentElement===main)main.appendChild(el);});}
+  function setAdmin(on){document.body.classList.toggle('df-admin-mode',on);$$('[data-df-editable="text"]').forEach(el=>el.setAttribute('contenteditable',on?'true':'false'));syncToc();if(on){history.replaceState(null,'',location.pathname+location.search+'#admin');status('Modo de edição');}else{clearSectionSelection();finishSectionDrag();history.replaceState(null,'',location.pathname+location.search+location.hash.replace('#admin',''));status('Pronto');}setupPartnerCarousel();}
+  function markDirty(){state.dirty=true;status('Alterações não salvas');}
+  async function saveAll(){if(!state.db)return;status('Salvando…');syncToc();const now=Date.now();for(const el of $$('[data-df-editable="text"]')){await put(STORE_CONTENT,{id:el.dataset.dfKey,type:'text',html:el.innerHTML,persistenceSchema:PERSISTENCE_SCHEMA,siteVersion:SITE_VERSION,updatedAt:now});}for(const img of $$('img[data-df-key]').filter(img=>!img.closest('.partner-card'))){await put(STORE_CONTENT,{id:img.dataset.dfKey,type:'image-ref',imageId:img.dataset.dfImageId||null,src:img.dataset.dfImageId?null:img.getAttribute('src'),alt:img.getAttribute('alt')||'',persistenceSchema:PERSISTENCE_SCHEMA,siteVersion:SITE_VERSION,updatedAt:now});}await savePartners(now);await saveGeneratedSections();await saveSectionLayout();state.dirty=false;status('Salvo');setTimeout(()=>status('Pronto'),1200);}
+  async function restoreAll(){if(!state.db)return;for(const el of $$('[data-df-editable="text"]')){const rec=await get(STORE_CONTENT,el.dataset.dfKey);if(compatibleRecord(rec)&&rec.type==='text')el.innerHTML=rec.html;}for(const img of $$('img[data-df-key]').filter(img=>!img.closest('.partner-card'))){const rec=await get(STORE_CONTENT,img.dataset.dfKey);if(!compatibleRecord(rec))continue;if(rec.alt!=null)img.alt=rec.alt;if(rec.imageId){const im=await get(STORE_IMAGES,rec.imageId);if(im&&im.blob){img.src=await dataUrlFromBlob(im.blob);img.dataset.dfImageId=rec.imageId;}}else if(rec.src){img.src=rec.src;}}
+    await restorePartners();
+  }
+  async function addFiles(files){for(const file of files){if(!file.type.startsWith('image/'))continue;const id='img-'+Date.now()+'-'+Math.random().toString(36).slice(2,9);await put(STORE_IMAGES,{id,name:file.name,type:file.type,size:file.size,createdAt:Date.now(),blob:file});}await renderLibrary();}
+  function defaultBanner(){try{const d=JSON.parse($('#df-banner-default')?.textContent||'{}');return {id:'banner-default',imageId:null,src:d.image||'',alt:d.alt||'Dermo Friends',href:'',newTab:false,active:true};}catch(e){return null;}}
+  async function bannerSrc(b){if(b.imageId){const im=await get(STORE_IMAGES,b.imageId);if(im&&im.blob)return await dataUrlFromBlob(im.blob);}return b.src||'';}
+  async function loadBanners(){const rec=await get(STORE_CONTENT,'df-opening-banners');state.banners=compatibleRecord(rec)&&rec.type==='opening-banners'&&Array.isArray(rec.items)?rec.items:[];if(!state.banners.length){const d=defaultBanner();if(d)state.banners=[d];}state.bannerIndex=0;await renderOpeningBanner();}
+  async function saveBanners(){await put(STORE_CONTENT,{id:'df-opening-banners',type:'opening-banners',items:state.banners,persistenceSchema:PERSISTENCE_SCHEMA,siteVersion:SITE_VERSION,updatedAt:Date.now()});state.dirty=false;status('Banners salvos');await renderOpeningBanner();setTimeout(()=>status('Pronto'),1200);}
+  async function renderOpeningBanner(){const intro=$('#dermoIntro'),stage=$('#dfBannerStage'),dots=$('#dfBannerDots');if(!intro||!stage||!dots)return;const active=state.banners.filter(b=>b.active!==false);if(!active.length){intro.classList.add('is-hidden');return;}if(state.bannerIndex>=active.length)state.bannerIndex=0;const b=active[state.bannerIndex],src=await bannerSrc(b);stage.innerHTML='';if(!src){stage.innerHTML='<div class="df-banner-empty">Banner sem imagem.</div>';}else{const img=document.createElement('img');img.className='df-banner-image';img.src=src;img.alt=b.alt||'Banner Dermo Friends';if(b.href){const a=document.createElement('a');a.className='df-banner-link';a.href=normalizePartnerUrl(b.href);if(b.newTab){a.target='_blank';a.rel='noopener noreferrer';}a.appendChild(img);stage.appendChild(a);}else stage.appendChild(img);}dots.innerHTML='';active.forEach((x,i)=>{const d=document.createElement('button');d.type='button';d.className='df-banner-dot'+(i===state.bannerIndex?' is-active':'');d.setAttribute('aria-label','Exibir banner '+(i+1));d.onclick=()=>{state.bannerIndex=i;renderOpeningBanner();};dots.appendChild(d);});const many=active.length>1;$('#dfBannerPrev').style.display=many?'grid':'none';$('#dfBannerNext').style.display=many?'grid':'none';dots.style.display=many?'flex':'none';intro.style.display='flex';intro.classList.remove('is-hidden');}
+  function closeOpeningBanners(){const intro=$('#dermoIntro');if(!intro)return;intro.classList.add('is-hidden');setTimeout(()=>{intro.style.display='none';},360);}
+  async function addBannerFromFile(file){if(!file)return;const item={id:'img-'+Date.now()+'-'+Math.random().toString(16).slice(2),name:file.name,type:file.type,size:file.size,createdAt:Date.now(),blob:file};await put(STORE_IMAGES,item);state.banners.push({id:'banner-'+Date.now()+'-'+Math.random().toString(16).slice(2),imageId:item.id,src:'',alt:file.name.replace(/\.[^.]+$/,''),href:'',newTab:false,active:true});markDirty();await renderBannerManager();}
+  async function addBannerFromLibrary(item){state.banners.push({id:'banner-'+Date.now()+'-'+Math.random().toString(16).slice(2),imageId:item.id,src:'',alt:item.name||'Banner Dermo Friends',href:'',newTab:false,active:true});state.bannerLibraryMode=false;markDirty();await renderBannerManager();openModal('dfBannerManagerModal');}
+  async function renderBannerManager(){const list=$('#dfBannerAdminList');if(!list)return;list.innerHTML='';if(!state.banners.length){list.innerHTML='<div class="df-library-empty">Nenhum banner cadastrado.</div>';return;}for(let i=0;i<state.banners.length;i++){const b=state.banners[i],src=await bannerSrc(b),row=document.createElement('div');row.className='df-banner-admin-item';row.innerHTML='<img alt=""><div class="df-banner-admin-fields"><input data-alt type="text" placeholder="Texto alternativo"><input data-link type="url" placeholder="Link opcional: https://..."><label><input data-active type="checkbox"> Ativo</label><label><input data-newtab type="checkbox"> Abrir link em nova aba</label></div><div class="df-banner-admin-actions"><button class="df-admin-btn" data-up type="button">↑ Subir</button><button class="df-admin-btn" data-down type="button">↓ Descer</button><button class="df-admin-btn" data-replace type="button">Trocar imagem</button><input data-file type="file" accept="image/*" hidden><button class="df-admin-btn" data-delete type="button">Excluir</button></div>';row.querySelector('img').src=src;row.querySelector('[data-alt]').value=b.alt||'';row.querySelector('[data-link]').value=b.href||'';row.querySelector('[data-active]').checked=b.active!==false;row.querySelector('[data-newtab]').checked=!!b.newTab;const sync=()=>{b.alt=row.querySelector('[data-alt]').value;b.href=row.querySelector('[data-link]').value;b.active=row.querySelector('[data-active]').checked;b.newTab=row.querySelector('[data-newtab]').checked;markDirty();};row.querySelectorAll('input:not([data-file])').forEach(x=>x.addEventListener('change',sync));row.querySelector('[data-up]').onclick=async()=>{sync();if(i>0){[state.banners[i-1],state.banners[i]]=[state.banners[i],state.banners[i-1]];await renderBannerManager();}};row.querySelector('[data-down]').onclick=async()=>{sync();if(i<state.banners.length-1){[state.banners[i+1],state.banners[i]]=[state.banners[i],state.banners[i+1]];await renderBannerManager();}};const fi=row.querySelector('[data-file]');row.querySelector('[data-replace]').onclick=()=>fi.click();fi.onchange=async e=>{const f=e.target.files&&e.target.files[0];if(!f)return;const item={id:'img-'+Date.now()+'-'+Math.random().toString(16).slice(2),name:f.name,type:f.type,size:f.size,createdAt:Date.now(),blob:f};await put(STORE_IMAGES,item);b.imageId=item.id;b.src='';if(!b.alt)b.alt=f.name.replace(/\.[^.]+$/,'');markDirty();await renderBannerManager();};row.querySelector('[data-delete]').onclick=async()=>{if(confirm('Excluir este banner?')){state.banners.splice(i,1);markDirty();await renderBannerManager();}};list.appendChild(row);}}
+  async function renderLibrary(){const grid=$('#dfLibraryGrid');if(!grid)return;const items=(await getAll(STORE_IMAGES)).sort((a,b)=>b.createdAt-a.createdAt);grid.innerHTML='';if(!items.length){grid.innerHTML='<div class="df-library-empty">Nenhuma imagem enviada ainda.</div>';return;}for(const item of items){const url=URL.createObjectURL(item.blob);const card=document.createElement('div');card.className='df-library-item';card.innerHTML='<img alt=""><div class="df-library-item__foot"><span class="df-library-item__name"></span><div><button type="button" data-use>Usar</button> <button type="button" data-del>×</button></div></div>';card.querySelector('img').src=url;card.querySelector('.df-library-item__name').textContent=item.name;card.querySelector('[data-use]').addEventListener('click',async()=>{if(state.bannerLibraryMode){closeModal('dfImageLibraryModal');await addBannerFromLibrary(item);}else if(state.partnerLibraryMode&&state.currentPartner){state.partnerPendingImage={imageId:item.id,blob:item.blob};$('#dfPartnerPreview').src=await dataUrlFromBlob(item.blob);state.partnerLibraryMode=false;closeModal('dfImageLibraryModal');openModal('dfPartnerEditModal');}else if(state.currentImage){state.pendingImage={imageId:item.id,blob:item.blob};$('#dfImagePreview').src=await dataUrlFromBlob(item.blob);closeModal('dfImageLibraryModal');openModal('dfImageEditModal');}else{alert('Abra a edição de uma imagem antes de escolher um item da biblioteca.');}});card.querySelector('[data-del]').addEventListener('click',async()=>{if(confirm('Remover esta imagem da biblioteca?')){await del(STORE_IMAGES,item.id);renderLibrary();}});grid.appendChild(card);}}
+  async function openImageEditor(img){state.currentImage=img;state.pendingImage=null;$('#dfImagePreview').src=img.src;$('#dfImageAlt').value=img.alt||'';$('#dfImageDirectUpload').value='';openModal('dfImageEditModal');}
+  function openModal(id){const m=$('#'+id);if(m)m.classList.add('open')}
+  function closeModal(id){const m=$('#'+id);if(m)m.classList.remove('open')}
+  async function applyImage(){const img=state.currentImage;if(!img)return;const file=$('#dfImageDirectUpload').files[0];if(file){const id='img-'+Date.now()+'-'+Math.random().toString(36).slice(2,9);await put(STORE_IMAGES,{id,name:file.name,type:file.type,size:file.size,createdAt:Date.now(),blob:file});img.src=await dataUrlFromBlob(file);img.dataset.dfImageId=id;}else if(state.pendingImage){img.src=await dataUrlFromBlob(state.pendingImage.blob);img.dataset.dfImageId=state.pendingImage.imageId;}img.alt=$('#dfImageAlt').value.trim();markDirty();closeModal('dfImageEditModal');await renderLibrary();}
+  async function exportContent(){await saveAll();const data={version:2,siteVersion:SITE_VERSION,persistenceSchema:PERSISTENCE_SCHEMA,exportedAt:new Date().toISOString(),content:await getAll(STORE_CONTENT),images:[]};for(const im of await getAll(STORE_IMAGES)){data.images.push({id:im.id,name:im.name,type:im.type,size:im.size,createdAt:im.createdAt,dataUrl:await dataUrlFromBlob(im.blob)});}const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='dermofriends-conteudo-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
+  function bind(){$('#dfAddPartner')?.addEventListener('click',addPartnerCard);$('#dfPartnerPrev')?.addEventListener('click',partnerPrev);$('#dfPartnerNext')?.addEventListener('click',partnerNext);const pg=partnerGrid();if(pg){pg.addEventListener('mouseenter',()=>{if(state.partnerTimer){clearInterval(state.partnerTimer);state.partnerTimer=null;}});pg.addEventListener('mouseleave',setupPartnerCarousel);}window.addEventListener('resize',setupPartnerCarousel);$('#dfBannerClose')?.addEventListener('click',closeOpeningBanners);$('#dfBannerPrev')?.addEventListener('click',()=>{const a=state.banners.filter(b=>b.active!==false);if(a.length){state.bannerIndex=(state.bannerIndex-1+a.length)%a.length;renderOpeningBanner();}});$('#dfBannerNext')?.addEventListener('click',()=>{const a=state.banners.filter(b=>b.active!==false);if(a.length){state.bannerIndex=(state.bannerIndex+1)%a.length;renderOpeningBanner();}});$('#dfManageBanners')?.addEventListener('click',async()=>{await renderBannerManager();openModal('dfBannerManagerModal');});$('#dfBannerUpload')?.addEventListener('change',async e=>{const f=e.target.files&&e.target.files[0];if(f){await addBannerFromFile(f);e.target.value='';}});$('#dfBannerChooseLibrary')?.addEventListener('click',async()=>{state.bannerLibraryMode=true;state.partnerLibraryMode=false;state.currentImage=null;closeModal('dfBannerManagerModal');await renderLibrary();openModal('dfImageLibraryModal');});$('#dfSaveBanners')?.addEventListener('click',async()=>{await saveBanners();closeModal('dfBannerManagerModal');});document.addEventListener('input',e=>{if(adminMode()&&e.target.matches('[data-df-editable="text"]')){markDirty();const section=e.target.closest('main > section.section');if(section&&e.target.matches('h2'))syncSectionTitle(section);}});document.addEventListener('blur',e=>{if(adminMode()&&e.target.matches('main > section.section h2'))syncSectionTitle(e.target.closest('main > section.section'));},true);document.addEventListener('click',e=>{if(!adminMode())return;const link=e.target.closest('a[href]');if(!link)return;if(link.closest('.df-admin-toolbar,.df-admin-modal,.df-public-admin-launch,.back'))return;const href=(link.getAttribute('href')||'').trim();if(/^https?:\/\//i.test(href)){link.setAttribute('target','_blank');link.setAttribute('rel','noopener noreferrer');return;}e.preventDefault();});$('#dfSaveAll').addEventListener('click',saveAll);$('#dfDeleteSelected').addEventListener('click',()=>deleteSections(getManualSections().filter(section=>state.selectedSections.has(section.id))));$('#dfExitAdmin').addEventListener('click',logoutAdmin);$('#dfAdminLoginForm').addEventListener('submit',async e=>{e.preventDefault();await validateAdminLogin();});$('#dfAdminUser').addEventListener('input',()=>$('#dfAdminLoginError').classList.remove('is-visible'));$('#dfAdminPassword').addEventListener('input',()=>$('#dfAdminLoginError').classList.remove('is-visible'));$('#dfOpenLibrary').addEventListener('click',async()=>{state.bannerLibraryMode=false;state.partnerLibraryMode=false;state.currentImage=null;await renderLibrary();openModal('dfImageLibraryModal')});$('#dfLibraryUpload').addEventListener('change',e=>addFiles(e.target.files));$('#dfChooseFromLibrary').addEventListener('click',async()=>{state.partnerLibraryMode=false;closeModal('dfImageEditModal');await renderLibrary();openModal('dfImageLibraryModal')});$('#dfApplyImage').addEventListener('click',applyImage);$('#dfPartnerChooseLibrary').addEventListener('click',async()=>{state.partnerLibraryMode=true;state.currentImage=null;closeModal('dfPartnerEditModal');await renderLibrary();openModal('dfImageLibraryModal')});$('#dfPartnerScale').addEventListener('input',e=>{const scale=parseInt(e.target.value,10)||100;$('#dfPartnerScaleValue').textContent=scale+'%';$('#dfPartnerPreview').style.transform='scale('+(scale/100)+')';});$('#dfPartnerApply').addEventListener('click',applyPartner);$('#dfPartnerUpload').addEventListener('change',async e=>{const file=e.target.files&&e.target.files[0];if(file)$('#dfPartnerPreview').src=await dataUrlFromBlob(file);});$('#dfExportContent').addEventListener('click',exportContent);$$('[data-df-close]').forEach(b=>b.addEventListener('click',()=>closeModal(b.dataset.dfClose)));$$('.df-admin-modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal(m.id)}));window.addEventListener('beforeunload',e=>{if(state.dirty){e.preventDefault();e.returnValue='';}});}
+  async function init(){addPublicLauncher();bind();state.baseSectionIds=getManualSections().map(s=>s.id);try{await openDB();await restoreGeneratedSections();await restoreSectionLayout();await loadBanners();}catch(err){console.error('Dermo Friends ADM DB:',err);status('Banco indisponível');}registerTextFields();registerSections();registerPartners();registerImages();addSectionButton();try{if(state.db)await restoreAll();}catch(err){console.error('Dermo Friends ADM restore:',err);}syncToc();observeSectionTitles();const adminRequested=location.hash==='#admin'||new URLSearchParams(location.search).get('admin')==='1';if(adminRequested&&adminSessionActive())setAdmin(true);else{setAdmin(false);if(adminRequested&&!adminSessionActive())openAdminLogin();}}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+
+</body></html>
